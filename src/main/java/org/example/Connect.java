@@ -24,11 +24,16 @@ public class Connect {
     }
 }
 
+// Lav read- of write-PackTags (To be able to read the sensors and control the production)
+// Lav metode for at sende PackML commands (For the sendCommand in main method)
+
+
+// Evt. flyttes i separat klasse
 
 public static void main(String[] args) {
     try {
         String clientUrl = "http://localhost:8080";
-        BeerConnect service = new BeerConnect(clientUrl);
+        Connect service = new Connect(clientUrl);
         // REST-API endpoints
         post("/start", (req, res) -> service.sendCommand(2));
         post("/stop", (req, res) -> service.sendCommand(3));
