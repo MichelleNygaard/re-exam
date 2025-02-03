@@ -1,0 +1,72 @@
+//To ensure that only on instance of the connect class( and therefore only one client) is created,
+// the singleton pattern is implemented by making the constructor private and providing a static method
+// to get the instance, where the clint connection can then be managed within that instance.
+
+public class Connect {
+    private static Connect instance; // this is a Singleton instance
+    private OpcUaClient client; // An instance of the OpcUaClient
+
+    // To prevent instantiation from outside the class, a private constructor is made
+    private Connect(String endpointUrl) throws Exception {
+        OpcUaClientConfigBuilder cfg = new OpcUaClientConfigBuilder();
+        cfg.setEndpoint(endpointUrl); // For some reason, it won't accept the server url.
+            // Maybe the server url doesn't need to be defined here, but in the main method e.g. (see line 35)
+
+        // Now the OpcUaClient is created
+        client = OpcUaClient.create(cfg.build());
+        client.connect().get(); //To connect to the server
+    }
+
+    // a public method is made to allow access to the Singleton instance
+    public static synchronized Connect getInstance(String endpointUrl) throws Exception {
+        if (instance == null) {
+            instance = new Connect(endpointUrl); // This creates the instance, if none exists
+        }
+        return instance; // This returns the exisiting instance if one is created.
+    }
+
+    // Lastly a method to get the OpcUaClient
+    public OpcUaClient getClient() {
+        return client;
+    }
+}
+
+
+// By getting the singleton instance from the Connect class, and using the server Url here,
+// the client should only get initiated one time.
+
+public class MachineController {
+    public static void main(String[] args) {
+        try {
+            // getting the Singleton instance and connecting to the server
+            Connect connection = Connect.getInstance("opc.tcp://192.168.0.122:4840");
+            OpcUaClient client = connection.getClient();
+
+            // methods for controlling the machine would go here
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+/////
+
+// Since we can only write to the Command structure (See manual page. 14, fig. 16)
+// We need to write to the machine using the PackTags, e.g.
+
+public void writePackTag(String nodeId, int value) throws Exception {
+    WriteValue writeValue = new WriteValue(nodeId, 0, null, new DataValue(unsigned.uint(value)));
+    Client.writeValue(writeValue).get();
+}
+// The new WriteValue(...) constructor creates a new WriteValue object, containing
+// the node identifier where the value will be written and attribute ID.
+// The new DataValue(...) creates a new DataValue object that encapsulates the values
+// that are to be written. unsigned.uint(value) is indicating the value will be converted to
+// an unsigned integer format, a commonly used data type in OPC UA.
+
+// The Client.writeValue(...) calls the Client method to perform the write operation using writeValue.
+
+
+////
+//

@@ -34,7 +34,7 @@ public static void main(String[] args) {
     try {
         String clientUrl = "http://localhost:8080";
         Connect service = new Connect(clientUrl);
-        // REST-API endpoints
+
         post("/start", (req, res) -> service.sendCommand(2));
         post("/stop", (req, res) -> service.sendCommand(3));
         post("/abort", (req, res) -> service.sendCommand(4));
@@ -46,3 +46,5 @@ public static void main(String[] args) {
         e.printStackTrace();
     }
 }
+
+
