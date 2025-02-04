@@ -70,3 +70,50 @@ public void writePackTag(String nodeId, int value) throws Exception {
 
 ////
 //
+
+EMILIES ENE BUD UD AF MANGE
+public class connectionClass {
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+
+
+
+        OpcUaClient client = create();
+
+        
+
+    }
+
+    /**
+     * this creates and connects a client for the OPC UA endpoint.
+     * @return OPCuaClient client
+     */
+    public static OpcUaClient create() {
+        try {
+            //get all endpoints from server
+            List<EndpointDescription> endpoints = DiscoveryClient
+                    .getEndpoints("opc.tcp:...")
+                    .get();
+            System.out.println(endpoints);
+            System.out.println("connected.");
+            //loading endpoints into configuration
+            OpcUaClientConfigBuilder cfg = new OpcUaClientConfigBuilder();
+            cfg.setEndpoint(endpoints.get(0));
+
+
+            //setting up client with config
+            OpcUaClient client = OpcUaClient.create(cfg.build());
+
+            //connecting client
+            client.connect().get();
+
+            return client;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+}
