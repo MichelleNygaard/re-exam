@@ -117,3 +117,27 @@ public class connectionClass {
         return null;
     }
 }
+
+
+EMILIES TYV STJÅLEDE FRA STACKOVERFLPW LINK THOMAS SENDTE:
+public class OpcUaConnection {
+    OpcUaClient client;
+    final int NAMESPACEINDEX = 6;
+
+    private static final AtomicLong clientHandles = new AtomicLong(1L);
+
+    public OpcUaConnection() {
+        try {
+            List<EndpointDescription> endpoints = DiscoveryClient.getEndpoints("opc.tcp://192.168.0.122:4840").get();
+            EndpointDescription configPoint = EndpointUtil.updateUrl(endpoints.get(0), "192.168.0.122", 4840);
+
+            OpcUaClientConfigBuilder cfg = new OpcUaClientConfigBuilder();
+            cfg.setEndpoint(configPoint);
+
+            this.client = OpcUaClient.create(cfg.build());
+            client.connect().get();
+
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
+    }
