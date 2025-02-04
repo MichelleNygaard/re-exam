@@ -15,16 +15,28 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.22</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.22</version>
+        </dependency>
+
+
     <dependency>
         <groupId>org.eclipse.milo</groupId>
         <artifactId>sdk-client</artifactId>
-        <version>0.6.14</version>
+        <version>0.6.15</version>
     </dependency>
 
     <dependency>
         <groupId>org.eclipse.milo</groupId>
         <artifactId>sdk-server</artifactId>
-        <version>0.6.14</version>
+        <version>0.6.15</version>
     </dependency>
 
         <dependency>
