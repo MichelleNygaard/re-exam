@@ -69,7 +69,6 @@ public class connectionClass {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
     }
 }
