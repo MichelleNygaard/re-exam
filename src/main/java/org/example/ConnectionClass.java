@@ -28,6 +28,7 @@ public final class ConnectionClass {
 
     OpcUaClient client;
 
+
     private ConnectionClass() {
         create();
     }
