@@ -40,27 +40,6 @@ public class Production {
             }
 
 
-
-
-        //Send command til at starte
-       /* writeValue(new NodeId(2,"Command.CntrlCmd"),2);
-
-        //vent
-        TimeUnit.MILLISECONDS.sleep(200);
-
-        writeValue(new NodeId(2, "Command.CmdChangeRequest"), true);
-
-        TimeUnit.MILLISECONDS.sleep(500);
-
-        int newState = readMachineState();
-        System.out.println("Machine State After Command: " + newState);
-
-        if(newState == 6){
-            System.out.println("Produktion startet");
-        } else{
-            System.out.println("PRODUKTION ER IKKE STARTET! STATE: " + newState);
-        }*/
-
         } catch (Exception e){
             e.printStackTrace();
             System.out.println("Fejler i startproduction");
@@ -85,11 +64,7 @@ public class Production {
         int newState = readMachineState();
         System.out.println("Machine State After Command: " + newState);
 
-        /*if(newState == 6){
-            System.out.println("Produktion startet");
-        } else{
-            System.out.println("PRODUKTION ER IKKE STARTET! STATE: " + newState);
-        }*/
+
     }
     private int readMachineState() throws Exception {
         if (client == null ) {
@@ -97,8 +72,8 @@ public class Production {
             return -1;
         }
 
-        NodeId stateNode = CURRENT_STATE_NODE_ID; // Use the constant from OpcUaNodeIds
-        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, stateNode);
+
+        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, CURRENT_STATE_NODE_ID);
         DataValue dataValue = futureValue.get();
         Object value = dataValue.getValue().getValue();
         System.out.println("Value: " + dataValue.getValue().getValue());
