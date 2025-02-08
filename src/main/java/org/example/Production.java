@@ -3,11 +3,8 @@ import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
-import org.eclipse.milo.opcua.stack.core.types.builtin.StatusCode;
-import org.eclipse.milo.opcua.stack.core.types.structured.WriteValue;
-import org.eclipse.milo.opcua.stack.core.serialization.OpcUaBinaryStreamEncoder;
-import org.eclipse.milo.opcua.stack.core.serialization.UaEncoder;
-import java.util.*;
+import org.eclipse.milo.opcua.stack.core.types.enumerated.TimestampsToReturn;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Production {
     private final OpcUaClient client;
-
+    public static final NodeId CURRENT_STATE_NODE_ID = new NodeId(6, "::Program:Cube.Status.StateCurrent");
     public Production() throws ExecutionException, InterruptedException {
         this.client = ConnectionClass.getInstance().client;
         this.client.connect().get();
@@ -94,27 +91,22 @@ public class Production {
             System.out.println("PRODUKTION ER IKKE STARTET! STATE: " + newState);
         }
     }
-    private int readMachineState() throws Exception{
-        NodeId stateNode = new NodeId(6, "::Program:Cube.Status.StateCurrent");
-        DataValue value = this.client.readValue(0, null, stateNode).get();
-        try {
-            if (this.client == null || this.client.getSession().get() == null) {
-                System.out.println("OPC UA klient er ikke connected");
-                return -1;
-            }
-
-        else if(value.getValue()==null){
-                System.out.println("Machine state er null. Kan være et Node problem i OPCUA");
-                return -1;
-            }
-            return (Integer) value.getValue().getValue();
-        } catch(Exception e){
-            e.printStackTrace();
-            System.out.println("Fejler i ReadMAchineState)");
+    private int readMachineState() throws Exception {
+        if (client == null ) {
+            System.out.println("OPC UA client is not connected or session is null.");
             return -1;
         }
 
+        NodeId stateNode = CURRENT_STATE_NODE_ID; // Use the constant from OpcUaNodeIds
+        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, stateNode);
+        DataValue dataValue = futureValue.get();
+
+        System.out.println("Value: " + dataValue.getValue().getValue());
+        return 0;
     }
+
+
+
     private void NewWriteValue(NodeId nodeId, Object value) {
         try{
             CompletableFuture<Void> future = this.client.writeValue(nodeId, new DataValue(new Variant(value))).thenAccept(v -> System.out.println("Wrote" + value + " to " + nodeId));
