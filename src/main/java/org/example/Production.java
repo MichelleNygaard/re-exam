@@ -8,8 +8,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+
 public class Production {
     private final OpcUaClient client;
+
     public Production(){
         this.client = ConnectionClass.getInstance().client;
     }
@@ -21,7 +23,9 @@ public class Production {
                 return;
             }
 
-
+            //Check machine state
+            int currentState = readMachineState();
+            System.out.println("Current Machine State: " + currentState);
         //batch id
         writeValue(new NodeId(2, "Command.Parameter[0]"), batchId);
         //produkt type/id
@@ -42,10 +46,41 @@ public class Production {
 
         writeValue(new NodeId(2, "Command.CmdChangeRequest"), true);
 
-        System.out.println("Produktion startet");
+        TimeUnit.MILLISECONDS.sleep(500);
+
+        int newState = readMachineState();
+        System.out.println("Machine State After Command: " + newState);
+
+        if(newState == 6){
+            System.out.println("Produktion startet");
+        } else{
+            System.out.println("PRODUKTION ER IKKE STARTET! STATE: " + newState);
+        }
+
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private int readMachineState(){
+        try{
+            if(client==null || !client.getSession().isPresent()){
+                System.out.println("OPC UA klient er ikke connected");
+                return -1;
+            }
+            NodeId stateNode = new NodeId(2, "Status.StateCurrent");
+            DataValue value = client.readValue(0, null, stateNode).get();
+
+            if(value.getValue()==null){
+                System.out.println("Machine state er null. Kan være et Node problem i OPCUA");
+                return -1;
+            }
+            return (Integer) value.getValue().getValue();
+        } catch(Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+
     }
     private void writeValue(NodeId nodeId, Object value) {
         try{
