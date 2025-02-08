@@ -85,11 +85,11 @@ public class Production {
         int newState = readMachineState();
         System.out.println("Machine State After Command: " + newState);
 
-        if(newState == 6){
+        /*if(newState == 6){
             System.out.println("Produktion startet");
         } else{
             System.out.println("PRODUKTION ER IKKE STARTET! STATE: " + newState);
-        }
+        }*/
     }
     private int readMachineState() throws Exception {
         if (client == null ) {
@@ -100,9 +100,9 @@ public class Production {
         NodeId stateNode = CURRENT_STATE_NODE_ID; // Use the constant from OpcUaNodeIds
         CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, stateNode);
         DataValue dataValue = futureValue.get();
-
+        Object value = dataValue.getValue().getValue();
         System.out.println("Value: " + dataValue.getValue().getValue());
-        return 0;
+        return (Integer) value;
     }
 
 
