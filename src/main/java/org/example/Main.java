@@ -8,5 +8,9 @@ public class Main {
     public static void main(String[] args) {
         ConnectionClass.getInstance();
         SpringApplication.run(Main.class, args);
+
+        //start produktionen
+        Production production = new Production();
+        production.startProduction(1001, 2, 200, 120);
     }
 }
