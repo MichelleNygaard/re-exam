@@ -3,7 +3,7 @@ import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
-
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -64,7 +64,7 @@ public class Production {
 
     private int readMachineState(){
         try{
-            if(client==null || !client.getSession().isPresent()){
+            if(client==null || client.getSession().get()==null){
                 System.out.println("OPC UA klient er ikke connected");
                 return -1;
             }
