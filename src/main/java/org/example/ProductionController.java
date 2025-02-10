@@ -20,7 +20,7 @@ public class ProductionController {
                                                   @RequestParam int speed) {
         try {
             production.startProduction(batchId, productType, quantity, speed);
-            return ResponseEntity.ok("Production started successfully");
+            return ResponseEntity.ok("Parameters set successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error starting production: " + e.getMessage());
         }
