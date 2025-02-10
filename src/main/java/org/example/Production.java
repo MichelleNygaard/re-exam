@@ -31,6 +31,8 @@ public class Production {
     public static final NodeId STOP_REASON_ID_NODE_ID = new NodeId(6, "::Program.Cube.Admin.StopReason");
     public static final NodeId PROD_DEFECTIVE = new NodeId(6, "::Program.Cube.Admin.ProdDefectiveCount");
     public static final NodeId PROD_SUCCESS = new NodeId(6, "::Program.Cube.Admin.ProdProcessedCount");
+    public static final NodeId PRODUCED = new NodeId(6, "::Program:product.produced");
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
     public Production() throws Exception {
         this.client = ConnectionClass.getInstance().client;
@@ -50,10 +52,6 @@ public class Production {
 
         }
         readMachineState();
-        prodSuccess();
-        instance.subscribe(Production.CURRENT_STATE_NODE_ID);
-        instance.subscribe(Production.PROD_DEFECTIVE);
-        instance.subscribe(Production.PROD_SUCCESS);
     }
     public void startProduction(int batchId, int productType, int quantity, int speed)throws Exception{
         //Check machine state
@@ -168,7 +166,7 @@ public class Production {
         DataValue dataValue = futureValue.get();
         Object valueSuc = dataValue.getValue().getValue();
         System.out.println("Value: " + valueSuc);
-        return valueSuc.toString();
+        return (Integer) valueSuc;
 
     }
 
