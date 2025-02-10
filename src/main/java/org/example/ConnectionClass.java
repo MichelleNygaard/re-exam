@@ -27,19 +27,10 @@ import static spark.Spark.post;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-//        OpcUaClient client = create();
-
-//        while (true) {
-//            Thread.sleep(10);
-//        }
 
 public final class ConnectionClass {
 
 
-    /**
-     * this creates and connects a client for the OPC UA endpoint.
-//     * @return OPCuaClient client
-     */
 
     private static ConnectionClass instance;
 
@@ -66,7 +57,6 @@ public final class ConnectionClass {
             }
 
             //setting up client with config
-//            OpcUaClient client = OpcUaClient.create(cfg.build());
             client = OpcUaClient.create(cfg.build());
             client.connect().get();
 
