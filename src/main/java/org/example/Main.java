@@ -18,6 +18,9 @@ public class Main {
         Production production = new Production();
         production.startProduction(1001, 2, 200, 120);
         //production.cmdNode();
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 }
