@@ -113,7 +113,7 @@ public final class ConnectionClass {
     }
 
     private void onSubscriptionValue(UaMonitoredItem item, DataValue value) {
-        System.out.println("A new value has been updated for node: " + item.getReadValueId().toString() + " The value is: " + value.getValue().getValue());
+        System.out.println("A new value has been updated for node: " + item.getReadValueId().toString() + " The value is: " + value.getValue().getValue().toString());
     }
 }
 
