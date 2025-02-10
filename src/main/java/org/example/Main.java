@@ -10,9 +10,6 @@ public class Main {
         ConnectionClass instance = ConnectionClass.getInstance();
         SpringApplication.run(Main.class, args);
 
-        instance.subscribe(Production.CURRENT_STATE_NODE_ID);
-
-
 
         //start produktionen
 //        Production production = new Production();

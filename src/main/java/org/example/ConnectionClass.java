@@ -6,10 +6,8 @@ import org.eclipse.milo.opcua.sdk.client.api.subscriptions.UaMonitoredItem;
 import org.eclipse.milo.opcua.sdk.client.api.subscriptions.UaSubscription;
 import org.eclipse.milo.opcua.stack.client.DiscoveryClient;
 import org.eclipse.milo.opcua.stack.core.AttributeId;
-import org.eclipse.milo.opcua.stack.core.Identifiers;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
-import org.eclipse.milo.opcua.stack.core.types.builtin.QualifiedName;
 import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UInteger;
 import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned;
 import org.eclipse.milo.opcua.stack.core.types.enumerated.MonitoringMode;
@@ -25,7 +23,6 @@ import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.
 import static spark.Spark.post;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 
 public final class ConnectionClass {
@@ -41,16 +38,16 @@ public final class ConnectionClass {
         create();
     }
 
-    public OpcUaClient create() {
+    public void create() {
         try {
             //get all endpoints from server
             List<EndpointDescription> endpoints = DiscoveryClient
-                    .getEndpoints("opc.tcp://127.0.0.1:4840") //192.168.0.122
+                    .getEndpoints("opc.tcp://192.168.0.122:4840") //192.168.0.122
                     .get();
             OpcUaClientConfigBuilder cfg = new OpcUaClientConfigBuilder();
             for (int i = 0; i < endpoints.size(); i++) {
                 if(endpoints.get(i).getSecurityMode().name().equals("None")){
-                    EndpointDescription configPoint = EndpointUtil.updateUrl(endpoints.get(i), "127.0.0.1", 4840);
+                    EndpointDescription configPoint = EndpointUtil.updateUrl(endpoints.get(i), "192.168.0.122", 4840);
                     cfg.setEndpoint(configPoint);
                     break;
                 }
@@ -60,13 +57,12 @@ public final class ConnectionClass {
             client = OpcUaClient.create(cfg.build());
             client.connect().get();
 
+
             System.out.println("Connected successfully");
-            return client;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     public static ConnectionClass getInstance() {
@@ -99,14 +95,13 @@ public final class ConnectionClass {
         );
 
 
+        List<MonitoredItemCreateRequest> items = List.of(request);
 
         // when creating items in MonitoringMode.Reporting this callback is where each item needs to have its
         // value/event consumer hooked up. The alternative is to create the item in sampling mode, hook up the
         // consumer after the creation call completes, and then change the mode for all items to reporting.
         UaSubscription.ItemCreationCallback onItemCreated = (item, id) ->
             item.setValueConsumer(this::onSubscriptionValue);
-
-        List<MonitoredItemCreateRequest> items = List.of(request);
 
         subscription.createMonitoredItems(TimestampsToReturn.Both, items, onItemCreated).get();
 
@@ -115,7 +110,7 @@ public final class ConnectionClass {
     }
 
     private void onSubscriptionValue(UaMonitoredItem item, DataValue value) {
-        System.out.println("A new value has been updated for node: " + item.getReadValueId().toString() + " The value is: " + value.getValue().getValue().toString());
+        System.out.println("A new value has been updated for node: " + item.getReadValueId().toString() + " The value is: " + value.getValue().getValue());
     }
 }
 

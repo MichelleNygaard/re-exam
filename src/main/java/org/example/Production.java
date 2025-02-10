@@ -1,10 +1,15 @@
 package org.example;
+import com.google.common.collect.ImmutableList;
+
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 import org.eclipse.milo.opcua.stack.core.types.enumerated.TimestampsToReturn;
-
+import org.eclipse.milo.opcua.stack.core.types.structured.WriteValue;
+import com.google.common.collect.ImmutableList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -12,23 +17,71 @@ import java.util.concurrent.TimeUnit;
 
 public class Production {
     private final OpcUaClient client;
+
+    ConnectionClass instance = ConnectionClass.getInstance();
+
+    //NodeID fra UAExpert
     public static final NodeId CURRENT_STATE_NODE_ID = new NodeId(6, "::Program:Cube.Status.StateCurrent");
-    public Production() throws ExecutionException, InterruptedException {
+    public static final NodeId BATCH_VALUE_NODE_ID = new NodeId(6, "::Program:Cube.Command.Parameter[0].Value");
+    public static final NodeId PRODUCT_TYPE_NODE_ID = new NodeId(6, "::Program:Cube.Command.Parameter[1].Value");
+    public static final NodeId QUANTITY_VALUE_NODE_ID = new NodeId(6, "::Program:Cube.Command.Parameter[2].Value");
+    public static final NodeId SPEED_NODE_ID = new NodeId(6, "::Program:Cube.Command.MachSpeed");
+    public static final NodeId CNTRL_CMD_NODE_ID = new NodeId(6,"::Program:Cube.Command.CntrlCmd");
+    public static final NodeId CMD_CHANGE_REQUEST_NODE_ID = new NodeId(6, "::Program:Cube.Command.CmdChangeRequest");
+    public static final NodeId STOP_REASON_ID_NODE_ID = new NodeId(6, "::Program.Cube.Admin.StopReason");
+    public static final NodeId PROD_DEFECTIVE = new NodeId(6, "::Program.Cube.Admin.ProdDefectiveCount");
+    public static final NodeId PROD_SUCCESS = new NodeId(6, "::Program.Cube.Admin.ProdProcessedCount");
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    public Production() throws Exception {
         this.client = ConnectionClass.getInstance().client;
         this.client.connect().get();
     }
+    public void machineReady() throws Exception{
+        int currentState = readMachineState();
+        //int stopReason = readStopReason();
+        if (currentState == 4) { // idle state
+            sendCommand(2); // kør
+            TimeUnit.MILLISECONDS.sleep(500);
+        }
+
+        else{
+            logger.info("Machine is not in idle. Resetting...");
+            sendCommand(1); // Reset
+
+        }
+        readMachineState();
+        prodSuccess();
+        instance.subscribe(Production.CURRENT_STATE_NODE_ID);
+        instance.subscribe(Production.PROD_DEFECTIVE);
+        instance.subscribe(Production.PROD_SUCCESS);
+    }
     public void startProduction(int batchId, int productType, int quantity, int speed)throws Exception{
         //Check machine state
-        int currentState = readMachineState();
-        System.out.println("Current Machine State: " + currentState);
+        machineReady();
+        System.out.println("Current Machine State: " + readMachineState());
         //batch id
-        NewWriteValue(new NodeId(6, "::Program:Cube.Command.Parameter[0].Value"), batchId);
+        client.writeValues(
+                ImmutableList.of(BATCH_VALUE_NODE_ID),
+                ImmutableList.of(new DataValue(new Variant(batchId), null, null))
+        ).get();
         //produkt type/id
-        NewWriteValue(new NodeId(6,"::Program:Cube.Command.Parameter[1].Value"), productType);
+        client.writeValues(
+                ImmutableList.of(PRODUCT_TYPE_NODE_ID),
+                ImmutableList.of(new DataValue(new Variant(productType), null, null))
+        ).get();
+
         //Antal
-        NewWriteValue(new NodeId(6, "::Program:Cube.Command.Parameter[2].Value"), quantity);
+        client.writeValues(
+                ImmutableList.of(QUANTITY_VALUE_NODE_ID),
+                ImmutableList.of(new DataValue(new Variant(quantity), null, null))
+        ).get();
+
         //Hastighed
-        NewWriteValue(new NodeId(6, "::Program:Cube.Command.MachSpeed"), speed);
+        client.writeValues(
+                ImmutableList.of(SPEED_NODE_ID),
+                ImmutableList.of(new DataValue(new Variant(speed), null, null))
+        ).get();
+
 
         //Vent lidt
         TimeUnit.MILLISECONDS.sleep(500);
@@ -47,24 +100,49 @@ public class Production {
         }
     }
 
-    public void cmdNode() throws Exception{
-        NewWriteValue(new NodeId(6,"::Program:Cube.Command.CntrlCmd"),1);
-        NewWriteValue(new NodeId(6, "::Program:Cube.Command.CmdChangeRequest"), true);
-        TimeUnit.MILLISECONDS.sleep(1000);
+    /*public void cmdNode() throws Exception{
+        System.out.println("STATE INDEN START: " + readMachineState());
+        client.writeValues(
+                ImmutableList.of(CNTRL_CMD_NODE_ID),
+                ImmutableList.of(new DataValue(new Variant(1), null, null))
+        ).get();
+        client.writeValues(
+                ImmutableList.of(CMD_CHANGE_REQUEST_NODE_ID),
+                ImmutableList.of(new DataValue(new Variant(true), null, null))
+        ).get();
 
-        NewWriteValue(new NodeId(6,"::Program:Cube.Command.CntrlCmd"),2);
+        TimeUnit.MILLISECONDS.sleep(10000);
+        readMachineState();
+
+        client.writeValues(
+                ImmutableList.of(CNTRL_CMD_NODE_ID),
+                ImmutableList.of(new DataValue(new Variant(2), null, null))
+        ).get();
 
         //vent
         TimeUnit.MILLISECONDS.sleep(200);
 
-        NewWriteValue(new NodeId(6, "::Program:Cube.Command.CmdChangeRequest"), true);
+        client.writeValues(
+                ImmutableList.of(CMD_CHANGE_REQUEST_NODE_ID),
+                ImmutableList.of(new DataValue(new Variant(true), null, null))
+        ).get();
 
         TimeUnit.MILLISECONDS.sleep(500);
 
-        int newState = readMachineState();
-        System.out.println("Machine State After Command: " + newState);
+        readMachineState();
 
 
+    }*/
+    private void sendCommand(int command) throws Exception {
+        client.writeValues(
+                ImmutableList.of(CNTRL_CMD_NODE_ID),
+                ImmutableList.of(new DataValue(new Variant(command), null, null))
+        ).get();
+
+        client.writeValues(
+                ImmutableList.of(CMD_CHANGE_REQUEST_NODE_ID),
+                ImmutableList.of(new DataValue(new Variant(true), null, null))
+        ).get();
     }
     private int readMachineState() throws Exception {
         if (client == null ) {
@@ -76,22 +154,56 @@ public class Production {
         CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, CURRENT_STATE_NODE_ID);
         DataValue dataValue = futureValue.get();
         Object value = dataValue.getValue().getValue();
-        System.out.println("Value: " + dataValue.getValue().getValue());
+        System.out.println("Value: " + value);
         return (Integer) value;
     }
 
+    private int prodSuccess() throws Exception {
+        if (client == null ) {
+            System.out.println("OPC UA client is not connected or session is null.");
+            return -1;
+        }
+
+        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PROD_SUCCESS);
+        DataValue dataValue = futureValue.get();
+        Object valueSuc = dataValue.getValue().getValue();
+        System.out.println("Value: " + valueSuc);
+        return valueSuc.toString();
+
+    }
+
+    private int prodFail() throws Exception {
+        if (client == null ) {
+            System.out.println("OPC UA client is not connected or session is null.");
+            return -1;
+        }
+
+        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PROD_DEFECTIVE);
+        DataValue dataValue = futureValue.get();
+        Object valueFail = dataValue.getValue().getValue();
+        System.out.println("Value: " + valueFail);
+        return (Integer) valueFail;
+    }
 
 
-    private void NewWriteValue(NodeId nodeId, Object value) {
+    /*private int readStopReason() throws Exception{
+        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, STOP_REASON_ID_NODE_ID);
+        DataValue dataValue = futureValue.get();
+        return (Integer) dataValue.getValue().getValue();
+    }*/
+
+
+
+    /*private void NewWriteValue(NodeId nodeId, Object value) {
         try{
-            CompletableFuture<Void> future = this.client.writeValue(nodeId, new DataValue(new Variant(value))).thenAccept(v -> System.out.println("Wrote" + value + " to " + nodeId));
+            CompletableFuture<Void> future = this.client.writeValue(nodeId, new DataValue(new Variant(value))).thenAccept(v -> System.out.println("Wrote " + value + " to " + nodeId));
 
             future.get();
         }catch(InterruptedException | ExecutionException e){
             e.printStackTrace();
             System.out.println("fejler i NewWriteValue");
         }
-    }
+    }*/
 
     private boolean isValidSpeed(int productType, int speed){
         return switch(productType){
