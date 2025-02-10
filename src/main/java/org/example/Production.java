@@ -40,6 +40,7 @@ public class Production {
             sendCommand(2); // kør
             TimeUnit.MILLISECONDS.sleep(500);
         }
+        
 
         else{
             logger.info("Machine is not in idle. Resetting...");
