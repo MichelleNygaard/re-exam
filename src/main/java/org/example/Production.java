@@ -18,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 public class Production {
     private final OpcUaClient client;
 
+    ConnectionClass instance = ConnectionClass.getInstance();
+
     //NodeID fra UAExpert
     public static final NodeId CURRENT_STATE_NODE_ID = new NodeId(6, "::Program:Cube.Status.StateCurrent");
     public static final NodeId BATCH_VALUE_NODE_ID = new NodeId(6, "::Program:Cube.Command.Parameter[0].Value");
@@ -27,11 +29,12 @@ public class Production {
     public static final NodeId CNTRL_CMD_NODE_ID = new NodeId(6,"::Program:Cube.Command.CntrlCmd");
     public static final NodeId CMD_CHANGE_REQUEST_NODE_ID = new NodeId(6, "::Program:Cube.Command.CmdChangeRequest");
     public static final NodeId STOP_REASON_ID_NODE_ID = new NodeId(6, "::Program.Cube.Admin.StopReason");
+    public static final NodeId PROD_DEFECTIVE = new NodeId(6, "::Program.Cube.Admin.ProdDefectiveCount");
+    public static final NodeId PROD_SUCCESS = new NodeId(6, "::Program.Cube.Admin.ProdProcessedCount");
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    public Production() throws ExecutionException, InterruptedException {
+    public Production() throws Exception {
         this.client = ConnectionClass.getInstance().client;
         this.client.connect().get();
-
     }
     public void machineReady() throws Exception{
         int currentState = readMachineState();
@@ -48,6 +51,10 @@ public class Production {
 
         }
         readMachineState();
+        prodSuccess();
+        instance.subscribe(Production.CURRENT_STATE_NODE_ID);
+        instance.subscribe(Production.PROD_DEFECTIVE);
+        instance.subscribe(Production.PROD_SUCCESS);
     }
     public void startProduction(int batchId, int productType, int quantity, int speed)throws Exception{
         //Check machine state
@@ -151,6 +158,35 @@ public class Production {
         System.out.println("Value: " + value);
         return (Integer) value;
     }
+
+    private int prodSuccess() throws Exception {
+        if (client == null ) {
+            System.out.println("OPC UA client is not connected or session is null.");
+            return -1;
+        }
+
+        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PROD_SUCCESS);
+        DataValue dataValue = futureValue.get();
+        Object valueSuc = dataValue.getValue().getValue();
+        System.out.println("Value: " + valueSuc);
+        return valueSuc.toString();
+
+    }
+
+    private int prodFail() throws Exception {
+        if (client == null ) {
+            System.out.println("OPC UA client is not connected or session is null.");
+            return -1;
+        }
+
+        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PROD_DEFECTIVE);
+        DataValue dataValue = futureValue.get();
+        Object valueFail = dataValue.getValue().getValue();
+        System.out.println("Value: " + valueFail);
+        return (Integer) valueFail;
+    }
+
+
     /*private int readStopReason() throws Exception{
         CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, STOP_REASON_ID_NODE_ID);
         DataValue dataValue = futureValue.get();

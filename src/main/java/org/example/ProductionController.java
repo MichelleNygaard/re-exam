@@ -13,14 +13,14 @@ public class ProductionController {
         this.production = new Production();
     }
 
-    @PostMapping("/startProduction")
+    @PostMapping("/setParameters")
     public ResponseEntity<String> startProduction(@RequestParam int batchId,
                                                   @RequestParam int productType,
                                                   @RequestParam int quantity,
                                                   @RequestParam int speed) {
         try {
             production.startProduction(batchId, productType, quantity, speed);
-            return ResponseEntity.ok("Parameters set successfully");
+            return ResponseEntity.ok("Production started successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error starting production: " + e.getMessage());
         }
@@ -29,7 +29,7 @@ public class ProductionController {
     @PostMapping("/sendCommand")
     public ResponseEntity<String> sendCommand(@RequestParam int command) {
         try {
-            production.cmdNode();
+            production.machineReady();
             return ResponseEntity.ok("Command sent successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending command: " + e.getMessage());
