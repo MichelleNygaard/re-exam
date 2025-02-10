@@ -10,8 +10,14 @@ public class Main {
         SpringApplication.run(Main.class, args);
 
         //start produktionen
+<<<<<<< Updated upstream
 //        Production production = new Production();
 //        production.startProduction(1001, 2, 200, 120);
 //        production.cmdNode();
+=======
+        Production production = new Production();
+        production.startProduction(1001, 2, 200, 120);
+        //production.cmdNode();
+>>>>>>> Stashed changes
     }
 }
