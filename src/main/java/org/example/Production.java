@@ -1,6 +1,7 @@
 package org.example;
 import com.google.common.collect.ImmutableList;
 
+import org.eclipse.jetty.client.ProxyProtocolClientConnectionFactory;
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
@@ -10,6 +11,8 @@ import org.eclipse.milo.opcua.stack.core.types.structured.WriteValue;
 import com.google.common.collect.ImmutableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.SQLOutput;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +29,7 @@ public class Production {
     public static final NodeId PRODUCT_TYPE_NODE_ID = new NodeId(6, "::Program:Cube.Command.Parameter[1].Value");
     public static final NodeId QUANTITY_VALUE_NODE_ID = new NodeId(6, "::Program:Cube.Command.Parameter[2].Value");
     public static final NodeId SPEED_NODE_ID = new NodeId(6, "::Program:Cube.Command.MachSpeed");
-    public static final NodeId CNTRL_CMD_NODE_ID = new NodeId(6,"::Program:Cube.Command.CntrlCmd");
+    public static final NodeId CNTRL_CMD_NODE_ID = new NodeId(6, "::Program:Cube.Command.CntrlCmd");
     public static final NodeId CMD_CHANGE_REQUEST_NODE_ID = new NodeId(6, "::Program:Cube.Command.CmdChangeRequest");
     public static final NodeId STOP_REASON_ID_NODE_ID = new NodeId(6, "::Program.Cube.Admin.StopReason");
     public static final NodeId PROD_DEFECTIVE = new NodeId(6, "::Program.Cube.Admin.ProdDefectiveCount");
@@ -34,35 +37,38 @@ public class Production {
     public static final NodeId PRODUCED = new NodeId(6, "::Program:product.produced");
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public Production() throws Exception {
         this.client = ConnectionClass.getInstance().client;
         this.client.connect().get();
     }
-    public void machineReady() throws Exception{
+
+    public void machineReady() throws Exception {
         int currentState = readMachineState();
         //int stopReason = readStopReason();
         if (currentState == 4) { // idle state
             sendCommand(2); // kør
             TimeUnit.MILLISECONDS.sleep(500);
-        }
-        
-
-        else{
+        } else {
             logger.info("Machine is not in idle. Resetting...");
             sendCommand(1); // Reset
 
         }
         readMachineState();
     }
-    public void startProduction(int batchId, int productType, int quantity, int speed)throws Exception{
+
+    public void startProduction(int batchId, int productType, int quantity, int speed) throws Exception {
         //Check machine state
         machineReady();
         System.out.println("Current Machine State: " + readMachineState());
         //batch id
-        client.writeValues(
-                ImmutableList.of(BATCH_VALUE_NODE_ID),
-                ImmutableList.of(new DataValue(new Variant(batchId), null, null))
-        ).get();
+
+        if (isValidBatchId(batchId)) {
+            client.writeValues(
+                    ImmutableList.of(BATCH_VALUE_NODE_ID),
+                    ImmutableList.of(new DataValue(new Variant(batchId), null, null))
+            ).get();
+        }
         //produkt type/id
         client.writeValues(
                 ImmutableList.of(PRODUCT_TYPE_NODE_ID),
@@ -84,15 +90,21 @@ public class Production {
 
         //Vent lidt
         TimeUnit.MILLISECONDS.sleep(500);
-        try{
+        try {
             //tjekker at hastighed er inden for den range det specifikke produkt tillader
-            if(!isValidSpeed(productType,speed)){
+            if (!isValidSpeed(productType, speed)) {
                 System.out.println("Denne type tillader ikke denne hastighed");
+                return;
+            } if (!isValidBatchId(batchId)) {
+                System.out.println("Dette BatchId er 0 eller over 65535");
+                return;
+            } if (!isValidQuantity(quantity)) {
+                System.out.println("Dette Quantity er 0 eller over 65535");
                 return;
             }
 
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Fejler i startproduction");
 
@@ -143,8 +155,9 @@ public class Production {
                 ImmutableList.of(new DataValue(new Variant(true), null, null))
         ).get();
     }
+
     private int readMachineState() throws Exception {
-        if (client == null ) {
+        if (client == null) {
             System.out.println("OPC UA client is not connected or session is null.");
             return -1;
         }
@@ -158,7 +171,7 @@ public class Production {
     }
 
     private int prodSuccess() throws Exception {
-        if (client == null ) {
+        if (client == null) {
             System.out.println("OPC UA client is not connected or session is null.");
             return -1;
         }
@@ -172,7 +185,7 @@ public class Production {
     }
 
     private int prodFail() throws Exception {
-        if (client == null ) {
+        if (client == null) {
             System.out.println("OPC UA client is not connected or session is null.");
             return -1;
         }
@@ -192,7 +205,6 @@ public class Production {
     }*/
 
 
-
     /*private void NewWriteValue(NodeId nodeId, Object value) {
         try{
             CompletableFuture<Void> future = this.client.writeValue(nodeId, new DataValue(new Variant(value))).thenAccept(v -> System.out.println("Wrote " + value + " to " + nodeId));
@@ -203,6 +215,21 @@ public class Production {
             System.out.println("fejler i NewWriteValue");
         }
     }*/
+    private boolean isValidBatchId(int batchId) throws Exception {
+        if (batchId  <= 0 || batchId > 65535) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+    private boolean isValidQuantity(int quantity) throws Exception {
+        if (quantity <= 0 || quantity > 65535) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     private boolean isValidSpeed(int productType, int speed){
         return switch(productType){

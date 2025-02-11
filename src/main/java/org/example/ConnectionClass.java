@@ -28,12 +28,9 @@ import java.util.List;
 
 public final class ConnectionClass {
 
-
-
     private static ConnectionClass instance;
 
     OpcUaClient client;
-
 
     private ConnectionClass() {
         create();
