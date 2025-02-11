@@ -61,17 +61,19 @@ public class Production {
         System.out.println("Current Machine State: " + readMachineState());
 
         //batch id checker
-        if (isValidBatchId(batchId)) {
+        if (!isValidBatchId(batchId) || !isValidQuantity(quantity) || !isValidSpeed(productType, speed)) {
+            sendCommand(3);
+            System.out.println("Invalid input detected, production stopped");
+            return;
+        }
+
             client.writeValues(
                     ImmutableList.of(BATCH_VALUE_NODE_ID),
                     ImmutableList.of(new DataValue(new Variant(batchId), null, null))
             ).get();
-        } else {
-            sendCommand(3);
-            System.out.println("BatchId is not valid, production stopped");
-        }
+
         //produkt type/id //Hastighed
-        if (isValidSpeed(productType, speed)) {
+
             client.writeValues(
                     ImmutableList.of(PRODUCT_TYPE_NODE_ID),
                     ImmutableList.of(new DataValue(new Variant(productType), null, null))
@@ -80,21 +82,13 @@ public class Production {
                     ImmutableList.of(SPEED_NODE_ID),
                     ImmutableList.of(new DataValue(new Variant(speed), null, null))
             ).get();
-        } else {
-            sendCommand(3);
-            System.out.println("ProductType or speed is not valid, production stopped");
-        }
 
         //Antal
-        if (isValidQuantity(quantity)) {
         client.writeValues(
                 ImmutableList.of(QUANTITY_VALUE_NODE_ID),
                 ImmutableList.of(new DataValue(new Variant(quantity), null, null))
         ).get();
-        } else {
-            sendCommand(3);
-            System.out.println("Quantity is not valid, production stopped");
-        }
+
 
 
 
