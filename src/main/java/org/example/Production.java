@@ -30,8 +30,8 @@ public class Production {
     public static final NodeId CNTRL_CMD_NODE_ID = new NodeId(6, "::Program:Cube.Command.CntrlCmd");
     public static final NodeId CMD_CHANGE_REQUEST_NODE_ID = new NodeId(6, "::Program:Cube.Command.CmdChangeRequest");
     public static final NodeId STOP_REASON_ID_NODE_ID = new NodeId(6, "::Program.Cube.Admin.StopReason");
-    public static final NodeId PROD_DEFECTIVE = new NodeId(6, "::Program.Cube.Admin.ProdDefectiveCount");
-    public static final NodeId PROD_SUCCESS = new NodeId(6, "::Program.Cube.Admin.ProdProcessedCount");
+    public static final NodeId PROD_DEFECTIVE = new NodeId(6, "::Program:Cube.Admin.ProdDefectiveCount");
+    public static final NodeId PROD_SUCCESS = new NodeId(6, "::Program:Cube.Admin.ProdProcessedCount");
     public static final NodeId PRODUCED = new NodeId(6, "::Program:product.produced");
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
