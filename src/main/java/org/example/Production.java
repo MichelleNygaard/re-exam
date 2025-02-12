@@ -67,26 +67,14 @@ public class Production {
             return;
         }
 
-            client.writeValues(
-                    ImmutableList.of(BATCH_VALUE_NODE_ID),
-                    ImmutableList.of(new DataValue(new Variant(batchId), null, null))
-            ).get();
-
-        //produkt type/id //Hastighed
-
-            client.writeValues(
-                    ImmutableList.of(PRODUCT_TYPE_NODE_ID),
-                    ImmutableList.of(new DataValue(new Variant(productType), null, null))
-            ).get();
-            client.writeValues(
-                    ImmutableList.of(SPEED_NODE_ID),
-                    ImmutableList.of(new DataValue(new Variant(speed), null, null))
-            ).get();
-
-        //Antal
         client.writeValues(
-                ImmutableList.of(QUANTITY_VALUE_NODE_ID),
-                ImmutableList.of(new DataValue(new Variant(quantity), null, null))
+                ImmutableList.of(BATCH_VALUE_NODE_ID, PRODUCT_TYPE_NODE_ID, SPEED_NODE_ID, QUANTITY_VALUE_NODE_ID),
+                ImmutableList.of(
+                        new DataValue(new Variant(batchId), null, null),
+                        new DataValue(new Variant(productType), null, null),
+                        new DataValue(new Variant(speed), null, null),
+                        new DataValue(new Variant(quantity), null, null)
+                )
         ).get();
 
 
