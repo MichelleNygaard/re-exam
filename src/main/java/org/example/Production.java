@@ -6,11 +6,14 @@ import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
+import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UShort;
 import org.eclipse.milo.opcua.stack.core.types.enumerated.TimestampsToReturn;
 import org.eclipse.milo.opcua.stack.core.types.structured.WriteValue;
 import com.google.common.collect.ImmutableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.Time;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -55,9 +58,23 @@ public class Production {
         readMachineState();
     }
 
+    public void quantityReached(int quantity) throws Exception {
+        // Tjekker om den ønskede quantity er nået og stopper production if true.
+        while (true) {
+            int producedQuantity = isProducedQuantity();
+            if (producedQuantity >= quantity) {
+                sendCommand(3);
+                System.out.println("Production finished, quantity reached");
+                break;
+            }
+            TimeUnit.SECONDS.sleep(1);
+        }
+    }
+
     public void startProduction(int batchId, int productType, int quantity, int speed) throws Exception {
         //Check machine state
         machineReady();
+        quantityReached(quantity);
         System.out.println("Current Machine State: " + readMachineState());
 
         //batch id checker
@@ -91,8 +108,6 @@ public class Production {
 
 
 
-
-
         //Vent lidt
         TimeUnit.MILLISECONDS.sleep(500);
         try {
@@ -114,6 +129,8 @@ public class Production {
             System.out.println("Fejler i startproduction");
 
         }
+
+
     }
 
     /*public void cmdNode() throws Exception{
@@ -167,12 +184,11 @@ public class Production {
             return -1;
         }
 
-
         CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, CURRENT_STATE_NODE_ID);
         DataValue dataValue = futureValue.get();
-        Object value = dataValue.getValue().getValue();
-        System.out.println("Value: " + value);
-        return (Integer) value;
+        Object valueState = dataValue.getValue().getValue();
+        System.out.println("Value: " + valueState);
+        return (Integer) valueState;
     }
 
     private int prodSuccess() throws Exception {
@@ -246,5 +262,16 @@ public class Production {
             case 5 -> speed >= 0 && speed <= 125;  // Alcohol-Free
             default -> false;
         };
+    }
+
+    private int isProducedQuantity() throws Exception {
+        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PRODUCED);
+        DataValue dataValue = futureValue.get();
+        if (dataValue.getValue().getValue() instanceof UShort) {
+            UShort ushortValue = (UShort) dataValue.getValue().getValue();
+            return ushortValue.intValue();
+        } else {
+            throw new IllegalArgumentException("Expected UShort type");
+        }
     }
 }

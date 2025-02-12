@@ -13,6 +13,8 @@ public class Main {
         instance.subscribe(Production.CURRENT_STATE_NODE_ID);
         instance.subscribe(Production.SPEED_NODE_ID);
         instance.subscribe(Production.PRODUCED);
+        instance.subscribe(Production.PROD_DEFECTIVE);
+        instance.subscribe(Production.PROD_SUCCESS);
 
 
         //start produktionen
