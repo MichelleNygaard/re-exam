@@ -72,6 +72,7 @@ public class Production {
     }
 
     public void startProduction(int batchId, int productType, int quantity, int speed) throws Exception {
+        logger.info("Starting with parameter: batchId={} productType={} quantity={} speed={}", batchId, productType, quantity, speed);
         //Check machine state
         machineReady();
         quantityReached(quantity);
@@ -84,26 +85,14 @@ public class Production {
             return;
         }
 
-            client.writeValues(
-                    ImmutableList.of(BATCH_VALUE_NODE_ID),
-                    ImmutableList.of(new DataValue(new Variant(batchId), null, null))
-            ).get();
-
-        //produkt type/id //Hastighed
-
-            client.writeValues(
-                    ImmutableList.of(PRODUCT_TYPE_NODE_ID),
-                    ImmutableList.of(new DataValue(new Variant(productType), null, null))
-            ).get();
-            client.writeValues(
-                    ImmutableList.of(SPEED_NODE_ID),
-                    ImmutableList.of(new DataValue(new Variant(speed), null, null))
-            ).get();
-
-        //Antal
         client.writeValues(
-                ImmutableList.of(QUANTITY_VALUE_NODE_ID),
-                ImmutableList.of(new DataValue(new Variant(quantity), null, null))
+                ImmutableList.of(BATCH_VALUE_NODE_ID, PRODUCT_TYPE_NODE_ID, SPEED_NODE_ID, QUANTITY_VALUE_NODE_ID),
+                ImmutableList.of(
+                        new DataValue(new Variant(batchId), null, null),
+                        new DataValue(new Variant(productType), null, null),
+                        new DataValue(new Variant(speed), null, null),
+                        new DataValue(new Variant(quantity), null, null)
+                )
         ).get();
 
 
@@ -191,32 +180,32 @@ public class Production {
         return (Integer) valueState;
     }
 
-    private int prodSuccess() throws Exception {
-        if (client == null) {
-            System.out.println("OPC UA client is not connected or session is null.");
-            return -1;
-        }
-
-        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PROD_SUCCESS);
-        DataValue dataValue = futureValue.get();
-        Object valueSuc = dataValue.getValue().getValue();
-        System.out.println("Value: " + valueSuc);
-        return (Integer) valueSuc;
-
-    }
-
-    private int prodFail() throws Exception {
-        if (client == null) {
-            System.out.println("OPC UA client is not connected or session is null.");
-            return -1;
-        }
-
-        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PROD_DEFECTIVE);
-        DataValue dataValue = futureValue.get();
-        Object valueFail = dataValue.getValue().getValue();
-        System.out.println("Value: " + valueFail);
-        return (Integer) valueFail;
-    }
+//    private int prodSuccess() throws Exception {
+//        if (client == null) {
+//            System.out.println("OPC UA client is not connected or session is null.");
+//            return -1;
+//        }
+//
+//        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PROD_SUCCESS);
+//        DataValue dataValue = futureValue.get();
+//        Object valueSuc = dataValue.getValue().getValue();
+//        System.out.println("Value: " + valueSuc);
+//        return (Integer) valueSuc;
+//
+//    }
+//
+//    private int prodFail() throws Exception {
+//        if (client == null) {
+//            System.out.println("OPC UA client is not connected or session is null.");
+//            return -1;
+//        }
+//
+//        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PROD_DEFECTIVE);
+//        DataValue dataValue = futureValue.get();
+//        Object valueFail = dataValue.getValue().getValue();
+//        System.out.println("Value: " + valueFail);
+//        return (Integer) valueFail;
+//    }
 
 
     /*private int readStopReason() throws Exception{

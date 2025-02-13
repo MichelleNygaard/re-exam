@@ -40,12 +40,12 @@ public final class ConnectionClass {
         try {
             //get all endpoints from server
             List<EndpointDescription> endpoints = DiscoveryClient
-                    .getEndpoints("opc.tcp://192.168.0.122:4840") //192.168.0.122
+                    .getEndpoints("opc.tcp://127.0.0.1:4840") //192.168.0.122
                     .get();
             OpcUaClientConfigBuilder cfg = new OpcUaClientConfigBuilder();
             for (int i = 0; i < endpoints.size(); i++) {
                 if(endpoints.get(i).getSecurityMode().name().equals("None")){
-                    EndpointDescription configPoint = EndpointUtil.updateUrl(endpoints.get(i), "192.168.0.122", 4840);
+                    EndpointDescription configPoint = EndpointUtil.updateUrl(endpoints.get(i), "127.0.0.1", 4840);
                     cfg.setEndpoint(configPoint);
                     break;
                 }

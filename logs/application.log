@@ -1,0 +1,21 @@
+2025-02-13 11:17:34 - Java version: 22.0.1
+2025-02-13 11:17:34 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-13 11:17:34 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-13 11:17:35 - SecureRandom seeded in 0ms.
+2025-02-13 11:17:36 - Starting Main using Java 22.0.1 with PID 7136 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-13 11:17:36 - No active profile set, falling back to 1 default profile: "default"
+2025-02-13 11:17:37 - Tomcat initialized with port 8080 (http)
+2025-02-13 11:17:37 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-13 11:17:37 - Starting service [Tomcat]
+2025-02-13 11:17:37 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-13 11:17:37 - Initializing Spring embedded WebApplicationContext
+2025-02-13 11:17:37 - Root WebApplicationContext: initialization completed in 889 ms
+2025-02-13 11:17:37 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-13 11:17:37 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-13 11:17:37 - Started Main in 1.658 seconds (process running for 4.936)
+2025-02-13 11:18:11 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-13 11:18:11 - Initializing Servlet 'dispatcherServlet'
+2025-02-13 11:18:11 - Completed initialization in 1 ms
+2025-02-13 11:18:11 - Starting with parameter: batchId=158 productType=1 quantity=15 speed=200
+2025-02-13 11:18:11 - Machine is not in idle. Resetting...
+2025-02-13 11:19:03 - Resolved [org.springframework.web.context.request.async.AsyncRequestNotUsableException: ServletOutputStream failed to flush: java.nio.channels.ClosedChannelException]
