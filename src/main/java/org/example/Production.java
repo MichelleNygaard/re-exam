@@ -61,18 +61,6 @@ public class Production {
       readMachineState();
    }
 
-//    public void quantityReached(int quantity) throws Exception {
-//        // Tjekker om den ønskede quantity er nået og stopper production if true.
-//        while (true) {
-//            int producedQuantity = isProducedQuantity();
-//            if (producedQuantity >= quantity) {
-//                sendCommand(3);
-//                System.out.println("Production finished, quantity reached");
-//                break;
-//            }
-//            TimeUnit.SECONDS.sleep(1);
-//        }
-//    }
 
     public void startProduction(int batchId, int productType, int quantity, int speed) throws Exception {
         testWrite(BATCH_VALUE_NODE_ID, new Variant((float) batchId));
@@ -81,106 +69,13 @@ public class Production {
         testWrite(SPEED_NODE_ID, new Variant((float) speed));
 
         logger.info("Starting with parameter: batchId={} productType={} quantity={} speed={}", batchId, productType, quantity, speed);
-        //Check machine state
-
-//        UShort batchIdFloat = Unsigned.ushort(batchId);
-//        System.out.println("Float batchId: " + batchIdFloat);
-//
-//        UShort productTypeFloat = Unsigned.ushort(productType);
-//        System.out.println("Float productType: " + productTypeFloat);
-//
-//        UShort quantityFloat = Unsigned.ushort(quantity);
-//        System.out.println("Float quantity: " + quantityFloat);
-//
-//        UShort speedFloat = Unsigned.ushort(speed);
-//        System.out.println("Float speed: " + speedFloat);
-
-//        machineReady();
-//        quantityReached(quantity);
         System.out.println("Current Machine State: " + readMachineState());
 
 
         sendCommand(2);
-
-
-
-
-
-        //batch id checker
-//        if (!isValidBatchId(batchId) || !isValidQuantity(quantity) || !isValidSpeed(productType, speed)) {
-//            sendCommand(3);
-//            System.out.println("Invalid input detected, production stopped");
-//            return;
-//        }
-
-//        client.writeValues(
-//                ImmutableList.of(BATCH_VALUE_NODE_ID, PRODUCT_TYPE_NODE_ID, SPEED_NODE_ID, QUANTITY_VALUE_NODE_ID),
-//                ImmutableList.of(
-//
-//                        DataValue.valueOnly(new Variant((float) batchId)),
-//                        DataValue.valueOnly(new Variant((float) productType)),
-//                        DataValue.valueOnly(new Variant((float) speed)),
-//                        DataValue.valueOnly(new Variant((float) quantity))
-//                )
-//        ).get();
-
-
-
-//        //Vent lidt
-//        TimeUnit.MILLISECONDS.sleep(500);
-//        try {
-//            //tjekker at hastighed er inden for den range det specifikke produkt tillader
-//            if (!isValidSpeed(productType, speed)) {
-//                System.out.println("Denne type tillader ikke denne hastighed");
-//                return;
-//            } if (!isValidBatchId(batchId)) {
-//                System.out.println("Dette BatchId er 0 eller over 65535");
-//                return;
-//            } if (!isValidQuantity(quantity)) {
-//                System.out.println("Dette Quantity er 0 eller over 65535");
-//                return;
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("Fejler i startproduction");
-//
-//        }
     }
 
-    /*public void cmdNode() throws Exception{
-        System.out.println("STATE INDEN START: " + readMachineState());
-        client.writeValues(
-                ImmutableList.of(CNTRL_CMD_NODE_ID),
-                ImmutableList.of(new DataValue(new Variant(1), null, null))
-        ).get();
-        client.writeValues(
-                ImmutableList.of(CMD_CHANGE_REQUEST_NODE_ID),
-                ImmutableList.of(new DataValue(new Variant(true), null, null))
-        ).get();
 
-        TimeUnit.MILLISECONDS.sleep(10000);
-        readMachineState();
-
-        client.writeValues(
-                ImmutableList.of(CNTRL_CMD_NODE_ID),
-                ImmutableList.of(new DataValue(new Variant(2), null, null))
-        ).get();
-
-        //vent
-        TimeUnit.MILLISECONDS.sleep(200);
-
-        client.writeValues(
-                ImmutableList.of(CMD_CHANGE_REQUEST_NODE_ID),
-                ImmutableList.of(new DataValue(new Variant(true), null, null))
-        ).get();
-
-        TimeUnit.MILLISECONDS.sleep(500);
-
-        readMachineState();
-
-
-    }*/
     private void sendCommand(int command) throws Exception {
         client.writeValues(
                 ImmutableList.of(CNTRL_CMD_NODE_ID),
@@ -207,51 +102,7 @@ public class Production {
     }
 
 
-//    private int prodSuccess() throws Exception {
-//        if (client == null) {
-//            System.out.println("OPC UA client is not connected or session is null.");
-//            return -1;
-//        }
-//
-//        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PROD_SUCCESS);
-//        DataValue dataValue = futureValue.get();
-//        Object valueSuc = dataValue.getValue().getValue();
-//        System.out.println("Value: " + valueSuc);
-//        return (Integer) valueSuc;
-//
-//    }
-//
-//    private int prodFail() throws Exception {
-//        if (client == null) {
-//            System.out.println("OPC UA client is not connected or session is null.");
-//            return -1;
-//        }
-//
-//        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PROD_DEFECTIVE);
-//        DataValue dataValue = futureValue.get();
-//        Object valueFail = dataValue.getValue().getValue();
-//        System.out.println("Value: " + valueFail);
-//        return (Integer) valueFail;
-//    }
 
-
-    /*private int readStopReason() throws Exception{
-        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, STOP_REASON_ID_NODE_ID);
-        DataValue dataValue = futureValue.get();
-        return (Integer) dataValue.getValue().getValue();
-    }*/
-
-
-    /*private void NewWriteValue(NodeId nodeId, Object value) {
-        try{
-            CompletableFuture<Void> future = this.client.writeValue(nodeId, new DataValue(new Variant(value))).thenAccept(v -> System.out.println("Wrote " + value + " to " + nodeId));
-
-            future.get();
-        }catch(InterruptedException | ExecutionException e){
-            e.printStackTrace();
-            System.out.println("fejler i NewWriteValue");
-        }
-    }*/
     private boolean isValidBatchId(int batchId) throws Exception {
         if (batchId  <= 0 || batchId > 65535) {
             return false;
@@ -285,15 +136,4 @@ public class Production {
         System.out.println("NodeId:" + nodeId + "\n" + "value:" + value);
 
     }
-
-//    private int isProducedQuantity() throws Exception {
-//        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PRODUCED);
-//        DataValue dataValue = futureValue.get();
-//        if (dataValue.getValue().getValue() instanceof UShort) {
-//            UShort ushortValue = (UShort) dataValue.getValue().getValue();
-//            return ushortValue.intValue();
-//        } else {
-//            throw new IllegalArgumentException("Expected UShort type");
-//        }
-//    }
 }
