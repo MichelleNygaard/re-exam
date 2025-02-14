@@ -31,7 +31,7 @@ public class ProductionController {
     @PostMapping("/sendCommand")
     public ResponseEntity<String> sendCommand(@RequestParam int command) {
         try {
-            production.machineReady();
+//            production.machineReady();
             return ResponseEntity.ok("Command sent successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending command: " + e.getMessage());

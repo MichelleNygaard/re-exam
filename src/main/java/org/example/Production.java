@@ -1,4 +1,5 @@
 package org.example;
+import com.fasterxml.jackson.databind.deser.impl.ValueInjector;
 import com.google.common.collect.ImmutableList;
 
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
@@ -13,6 +14,7 @@ import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned;
 import org.eclipse.milo.opcua.stack.core.types.enumerated.TimestampsToReturn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
 
 import javax.xml.crypto.Data;
 import java.util.Optional;
@@ -56,23 +58,28 @@ public class Production {
             sendCommand(1); // Reset
 
         }
-        readMachineState();
-    }
+      readMachineState();
+   }
 
-    public void quantityReached(int quantity) throws Exception {
-        // Tjekker om den ønskede quantity er nået og stopper production if true.
-        while (true) {
-            int producedQuantity = isProducedQuantity();
-            if (producedQuantity >= quantity) {
-                sendCommand(3);
-                System.out.println("Production finished, quantity reached");
-                break;
-            }
-            TimeUnit.SECONDS.sleep(1);
-        }
-    }
+//    public void quantityReached(int quantity) throws Exception {
+//        // Tjekker om den ønskede quantity er nået og stopper production if true.
+//        while (true) {
+//            int producedQuantity = isProducedQuantity();
+//            if (producedQuantity >= quantity) {
+//                sendCommand(3);
+//                System.out.println("Production finished, quantity reached");
+//                break;
+//            }
+//            TimeUnit.SECONDS.sleep(1);
+//        }
+//    }
 
     public void startProduction(int batchId, int productType, int quantity, int speed) throws Exception {
+        testWrite(BATCH_VALUE_NODE_ID, new Variant((float) batchId));
+        testWrite(PRODUCT_TYPE_NODE_ID, new Variant((float) productType));
+        testWrite(QUANTITY_VALUE_NODE_ID, new Variant((float) quantity));
+        testWrite(SPEED_NODE_ID, new Variant((float) speed));
+
         logger.info("Starting with parameter: batchId={} productType={} quantity={} speed={}", batchId, productType, quantity, speed);
         //Check machine state
 
@@ -88,29 +95,34 @@ public class Production {
 //        UShort speedFloat = Unsigned.ushort(speed);
 //        System.out.println("Float speed: " + speedFloat);
 
-        machineReady();
-        quantityReached(quantity);
+//        machineReady();
+//        quantityReached(quantity);
         System.out.println("Current Machine State: " + readMachineState());
+
+
+        sendCommand(2);
+
+
 
 
 
         //batch id checker
-        if (!isValidBatchId(batchId) || !isValidQuantity(quantity) || !isValidSpeed(productType, speed)) {
-            sendCommand(3);
-            System.out.println("Invalid input detected, production stopped");
-            return;
-        }
+//        if (!isValidBatchId(batchId) || !isValidQuantity(quantity) || !isValidSpeed(productType, speed)) {
+//            sendCommand(3);
+//            System.out.println("Invalid input detected, production stopped");
+//            return;
+//        }
 
-        client.writeValues(
-                ImmutableList.of(BATCH_VALUE_NODE_ID, PRODUCT_TYPE_NODE_ID, SPEED_NODE_ID, QUANTITY_VALUE_NODE_ID),
-                ImmutableList.of(
-
-                        DataValue.valueOnly(new Variant((float) batchId)),
-                        DataValue.valueOnly(new Variant((float) productType)),
-                        DataValue.valueOnly(new Variant((float) speed)),
-                        DataValue.valueOnly(new Variant((float) quantity))
-                )
-        ).get();
+//        client.writeValues(
+//                ImmutableList.of(BATCH_VALUE_NODE_ID, PRODUCT_TYPE_NODE_ID, SPEED_NODE_ID, QUANTITY_VALUE_NODE_ID),
+//                ImmutableList.of(
+//
+//                        DataValue.valueOnly(new Variant((float) batchId)),
+//                        DataValue.valueOnly(new Variant((float) productType)),
+//                        DataValue.valueOnly(new Variant((float) speed)),
+//                        DataValue.valueOnly(new Variant((float) quantity))
+//                )
+//        ).get();
 
 
 
@@ -268,14 +280,20 @@ public class Production {
         };
     }
 
-    private int isProducedQuantity() throws Exception {
-        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PRODUCED);
-        DataValue dataValue = futureValue.get();
-        if (dataValue.getValue().getValue() instanceof UShort) {
-            UShort ushortValue = (UShort) dataValue.getValue().getValue();
-            return ushortValue.intValue();
-        } else {
-            throw new IllegalArgumentException("Expected UShort type");
-        }
+    private void testWrite(NodeId nodeId, Variant value) throws Exception {
+        client.writeValue(nodeId, DataValue.valueOnly(value));
+        System.out.println("NodeId:" + nodeId + "\n" + "value:" + value);
+
     }
+
+//    private int isProducedQuantity() throws Exception {
+//        CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, PRODUCED);
+//        DataValue dataValue = futureValue.get();
+//        if (dataValue.getValue().getValue() instanceof UShort) {
+//            UShort ushortValue = (UShort) dataValue.getValue().getValue();
+//            return ushortValue.intValue();
+//        } else {
+//            throw new IllegalArgumentException("Expected UShort type");
+//        }
+//    }
 }

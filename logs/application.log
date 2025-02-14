@@ -496,3 +496,122 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-02-14 11:59:31 - Tomcat started on port 8080 (http) with context path '/'
 2025-02-14 11:59:31 - Started Main in 2.397 seconds (process running for 6.875)
 2025-02-14 11:59:31 - Starting with parameter: batchId=1001 productType=2 quantity=200 speed=120
+2025-02-14 12:36:37 - Java version: 23.0.2
+2025-02-14 12:36:37 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-14 12:36:37 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-14 12:36:39 - SecureRandom seeded in 1ms.
+2025-02-14 12:36:40 - Starting Main using Java 23.0.2 with PID 26388 (C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam\target\classes started by Esben in C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam)
+2025-02-14 12:36:40 - No active profile set, falling back to 1 default profile: "default"
+2025-02-14 12:36:42 - Tomcat initialized with port 8080 (http)
+2025-02-14 12:36:42 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-14 12:36:42 - Starting service [Tomcat]
+2025-02-14 12:36:42 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-14 12:36:42 - Initializing Spring embedded WebApplicationContext
+2025-02-14 12:36:42 - Root WebApplicationContext: initialization completed in 1507 ms
+2025-02-14 12:36:42 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-14 12:36:42 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-14 12:36:42 - Started Main in 2.688 seconds (process running for 7.454)
+2025-02-14 12:36:42 - Starting with parameter: batchId=1001 productType=2 quantity=200 speed=120
+2025-02-14 12:36:42 - Machine is not in idle. Resetting...
+2025-02-14 12:39:47 - Java version: 23.0.2
+2025-02-14 12:39:47 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-14 12:39:47 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-14 12:39:49 - SecureRandom seeded in 1ms.
+2025-02-14 12:39:49 - Starting Main using Java 23.0.2 with PID 6220 (C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam\target\classes started by Esben in C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam)
+2025-02-14 12:39:49 - No active profile set, falling back to 1 default profile: "default"
+2025-02-14 12:39:51 - Tomcat initialized with port 8080 (http)
+2025-02-14 12:39:51 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-14 12:39:51 - Starting service [Tomcat]
+2025-02-14 12:39:51 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-14 12:39:51 - Initializing Spring embedded WebApplicationContext
+2025-02-14 12:39:51 - Root WebApplicationContext: initialization completed in 1427 ms
+2025-02-14 12:39:51 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-14 12:39:52 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-14 12:39:52 - Started Main in 2.563 seconds (process running for 7.019)
+2025-02-14 12:39:52 - Starting with parameter: batchId=1001 productType=2 quantity=200 speed=120
+2025-02-14 12:39:52 - Machine is not in idle. Resetting...
+2025-02-14 12:41:23 - Java version: 23.0.2
+2025-02-14 12:41:23 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-14 12:41:23 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-14 12:41:25 - SecureRandom seeded in 0ms.
+2025-02-14 12:41:25 - Starting Main using Java 23.0.2 with PID 6088 (C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam\target\classes started by Esben in C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam)
+2025-02-14 12:41:25 - No active profile set, falling back to 1 default profile: "default"
+2025-02-14 12:41:26 - Tomcat initialized with port 8080 (http)
+2025-02-14 12:41:26 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-14 12:41:26 - Starting service [Tomcat]
+2025-02-14 12:41:26 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-14 12:41:27 - Initializing Spring embedded WebApplicationContext
+2025-02-14 12:41:27 - Root WebApplicationContext: initialization completed in 1229 ms
+2025-02-14 12:41:27 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-14 12:41:27 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-14 12:41:27 - Started Main in 2.15 seconds (process running for 6.604)
+2025-02-14 12:41:27 - Starting with parameter: batchId=1001 productType=2 quantity=200 speed=120
+2025-02-14 12:55:30 - Java version: 23.0.2
+2025-02-14 12:55:30 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-14 12:55:30 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-14 12:56:39 - Java version: 23.0.2
+2025-02-14 12:56:39 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-14 12:56:39 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-14 12:56:41 - SecureRandom seeded in 0ms.
+2025-02-14 12:56:42 - Starting Main using Java 23.0.2 with PID 7072 (C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam\target\classes started by Esben in C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam)
+2025-02-14 12:56:42 - No active profile set, falling back to 1 default profile: "default"
+2025-02-14 12:56:43 - Tomcat initialized with port 8080 (http)
+2025-02-14 12:56:43 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-14 12:56:43 - Starting service [Tomcat]
+2025-02-14 12:56:43 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-14 12:56:43 - Initializing Spring embedded WebApplicationContext
+2025-02-14 12:56:43 - Root WebApplicationContext: initialization completed in 1550 ms
+2025-02-14 12:56:44 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-14 12:56:44 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-14 12:56:44 - Started Main in 2.542 seconds (process running for 6.855)
+2025-02-14 12:56:44 - Starting with parameter: batchId=1002 productType=2 quantity=200 speed=120
+2025-02-14 13:00:51 - Java version: 23.0.2
+2025-02-14 13:00:51 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-14 13:00:51 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-14 13:00:54 - SecureRandom seeded in 0ms.
+2025-02-14 13:00:54 - Starting Main using Java 23.0.2 with PID 19840 (C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam\target\classes started by Esben in C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam)
+2025-02-14 13:00:54 - No active profile set, falling back to 1 default profile: "default"
+2025-02-14 13:00:56 - Tomcat initialized with port 8080 (http)
+2025-02-14 13:00:56 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-14 13:00:56 - Starting service [Tomcat]
+2025-02-14 13:00:56 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-14 13:00:56 - Initializing Spring embedded WebApplicationContext
+2025-02-14 13:00:56 - Root WebApplicationContext: initialization completed in 1480 ms
+2025-02-14 13:00:56 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-14 13:00:56 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-14 13:00:56 - Started Main in 2.614 seconds (process running for 7.459)
+2025-02-14 13:00:56 - Starting with parameter: batchId=1003 productType=2 quantity=200 speed=120
+2025-02-14 13:03:08 - Java version: 23.0.2
+2025-02-14 13:03:08 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-14 13:03:08 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-14 13:03:10 - SecureRandom seeded in 0ms.
+2025-02-14 13:03:11 - Starting Main using Java 23.0.2 with PID 9088 (C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam\target\classes started by Esben in C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam)
+2025-02-14 13:03:11 - No active profile set, falling back to 1 default profile: "default"
+2025-02-14 13:03:12 - Tomcat initialized with port 8080 (http)
+2025-02-14 13:03:12 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-14 13:03:12 - Starting service [Tomcat]
+2025-02-14 13:03:12 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-14 13:03:12 - Initializing Spring embedded WebApplicationContext
+2025-02-14 13:03:12 - Root WebApplicationContext: initialization completed in 1333 ms
+2025-02-14 13:03:12 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-14 13:03:12 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-14 13:03:13 - Started Main in 2.264 seconds (process running for 6.719)
+2025-02-14 13:03:13 - Starting with parameter: batchId=1004 productType=2 quantity=200 speed=120
+2025-02-14 13:03:13 - Machine is not in idle. Resetting...
+2025-02-14 13:07:47 - Java version: 23.0.2
+2025-02-14 13:07:47 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-14 13:07:47 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-14 13:07:49 - SecureRandom seeded in 1ms.
+2025-02-14 13:07:50 - Starting Main using Java 23.0.2 with PID 12660 (C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam\target\classes started by Esben in C:\Users\Esben\OneDrive - Syddansk Universitet\Dokumenter\_SDU_Software\2. sem\VOP\Exercises\re-exam)
+2025-02-14 13:07:50 - No active profile set, falling back to 1 default profile: "default"
+2025-02-14 13:07:51 - Tomcat initialized with port 8080 (http)
+2025-02-14 13:07:51 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-14 13:07:51 - Starting service [Tomcat]
+2025-02-14 13:07:51 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-14 13:07:51 - Initializing Spring embedded WebApplicationContext
+2025-02-14 13:07:51 - Root WebApplicationContext: initialization completed in 1157 ms
+2025-02-14 13:07:51 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-14 13:07:51 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-14 13:07:51 - Started Main in 2.042 seconds (process running for 6.541)
+2025-02-14 13:07:51 - Starting with parameter: batchId=1005 productType=2 quantity=200 speed=120
+2025-02-14 13:07:51 - Machine is not in idle. Resetting...
