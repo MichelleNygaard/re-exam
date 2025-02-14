@@ -18,8 +18,8 @@ public class Main {
 
 
         //start produktionen
-//        Production production = new Production();
-//        production.startProduction(1001, 2, 200, 120);
-//        production.cmdNode();
+        Production production = new Production();
+        production.startProduction(1001, 2, 200, 120);
+       // production.cmdNode();
     }
 }

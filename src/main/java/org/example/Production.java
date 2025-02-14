@@ -2,7 +2,9 @@ package org.example;
 import com.google.common.collect.ImmutableList;
 
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
+import org.eclipse.milo.opcua.sdk.core.DataTypeTree;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
+import org.eclipse.milo.opcua.stack.core.types.builtin.ExpandedNodeId;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UInteger;
@@ -13,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.crypto.Data;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -73,17 +76,17 @@ public class Production {
         logger.info("Starting with parameter: batchId={} productType={} quantity={} speed={}", batchId, productType, quantity, speed);
         //Check machine state
 
-        UShort batchIdFloat = Unsigned.ushort(batchId);
-        System.out.println("Float batchId: " + batchIdFloat);
-
-        UShort productTypeFloat = Unsigned.ushort(productType);
-        System.out.println("Float productType: " + productTypeFloat);
-
-        UShort quantityFloat = Unsigned.ushort(quantity);
-        System.out.println("Float quantity: " + quantityFloat);
-
-        UShort speedFloat = Unsigned.ushort(speed);
-        System.out.println("Float speed: " + speedFloat);
+//        UShort batchIdFloat = Unsigned.ushort(batchId);
+//        System.out.println("Float batchId: " + batchIdFloat);
+//
+//        UShort productTypeFloat = Unsigned.ushort(productType);
+//        System.out.println("Float productType: " + productTypeFloat);
+//
+//        UShort quantityFloat = Unsigned.ushort(quantity);
+//        System.out.println("Float quantity: " + quantityFloat);
+//
+//        UShort speedFloat = Unsigned.ushort(speed);
+//        System.out.println("Float speed: " + speedFloat);
 
         machineReady();
         quantityReached(quantity);
@@ -102,10 +105,10 @@ public class Production {
                 ImmutableList.of(BATCH_VALUE_NODE_ID, PRODUCT_TYPE_NODE_ID, SPEED_NODE_ID, QUANTITY_VALUE_NODE_ID),
                 ImmutableList.of(
 
-                        new DataValue(new Variant(batchIdFloat)),
-                        new DataValue(new Variant(productTypeFloat)),
-                        new DataValue(new Variant(speedFloat)),
-                        new DataValue(new Variant(quantityFloat))
+                        DataValue.valueOnly(new Variant((float) batchId)),
+                        DataValue.valueOnly(new Variant((float) productType)),
+                        DataValue.valueOnly(new Variant((float) speed)),
+                        DataValue.valueOnly(new Variant((float) quantity))
                 )
         ).get();
 
@@ -187,7 +190,7 @@ public class Production {
         CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, CURRENT_STATE_NODE_ID);
         DataValue dataValue = futureValue.get();
         Object valueState = dataValue.getValue().getValue();
-        System.out.println("Value: " + valueState);
+        Optional<ExpandedNodeId> dataType = dataValue.getValue().getDataType();
         return (Integer) valueState;
     }
 
