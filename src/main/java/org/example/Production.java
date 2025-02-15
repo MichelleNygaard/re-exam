@@ -1,22 +1,15 @@
 package org.example;
-import com.fasterxml.jackson.databind.deser.impl.ValueInjector;
 import com.google.common.collect.ImmutableList;
 
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
-import org.eclipse.milo.opcua.sdk.core.DataTypeTree;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.ExpandedNodeId;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
-import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UInteger;
-import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UShort;
-import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned;
 import org.eclipse.milo.opcua.stack.core.types.enumerated.TimestampsToReturn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Node;
 
-import javax.xml.crypto.Data;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +44,7 @@ public class Production {
         int currentState = readMachineState();
         //int stopReason = readStopReason();
         if (currentState == 4) { // idle state
-            sendCommand(2); // kør
+            System.out.println("Machine is idle, and ready to start");; // kør
             TimeUnit.MILLISECONDS.sleep(500);
         } else {
             logger.info("Machine is not in idle. Resetting...");
@@ -84,8 +77,7 @@ public class Production {
         logger.info("Starting with parameter: batchId={} productType={} quantity={} speed={}", batchId, productType, quantity, speed);
         System.out.println("Current Machine State: " + readMachineState());
 
-
-        sendCommand(2);
+        //sendCommand(2);
     }
 
 
@@ -105,7 +97,7 @@ public class Production {
         if (client == null) {
             System.out.println("OPC UA client is not connected or session is null.");
             return -1;
-        }
+        };
 
         CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, CURRENT_STATE_NODE_ID);
         DataValue dataValue = futureValue.get();
@@ -143,6 +135,7 @@ public class Production {
             default -> false;
         };
     }
+
 
     private void nodeWrite(NodeId nodeId, Variant value) throws Exception {
         client.writeValue(nodeId, DataValue.valueOnly(value));

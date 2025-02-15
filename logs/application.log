@@ -797,3 +797,65 @@ Caused by: java.lang.NullPointerException: Cannot invoke "org.eclipse.milo.opcua
 2025-02-15 16:29:46 - Tomcat started on port 8080 (http) with context path '/'
 2025-02-15 16:29:46 - Started Main in 1.636 seconds (process running for 5.216)
 2025-02-15 16:30:03 - Starting with parameter: batchId=1 productType=2 quantity=100 speed=120
+2025-02-15 16:43:58 - Java version: 23.0.2
+2025-02-15 16:43:58 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:43:58 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:44:00 - SecureRandom seeded in 0ms.
+2025-02-15 16:44:00 - Starting Main using Java 23.0.2 with PID 6068 (C:\Users\esben\IdeaProjects\re-exam\target\classes started by esben in C:\Users\esben\IdeaProjects\re-exam)
+2025-02-15 16:44:00 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:44:01 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:44:01 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:44:01 - Starting service [Tomcat]
+2025-02-15 16:44:01 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:44:01 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:44:01 - Root WebApplicationContext: initialization completed in 899 ms
+2025-02-15 16:44:02 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:44:02 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:44:02 - Started Main in 1.587 seconds (process running for 5.085)
+2025-02-15 16:44:13 - Starting with parameter: batchId=1000 productType=2 quantity=100 speed=120
+2025-02-15 17:00:59 - Starting Main using Java 23.0.2 with PID 17532 (C:\Users\esben\IdeaProjects\re-exam\target\classes started by esben in C:\Users\esben\IdeaProjects\re-exam)
+2025-02-15 17:00:59 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 17:01:00 - Tomcat initialized with port 8080 (http)
+2025-02-15 17:01:00 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 17:01:00 - Starting service [Tomcat]
+2025-02-15 17:01:00 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 17:01:00 - Initializing Spring embedded WebApplicationContext
+2025-02-15 17:01:00 - Root WebApplicationContext: initialization completed in 943 ms
+2025-02-15 17:01:00 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'productionController' defined in file [C:\Users\esben\IdeaProjects\re-exam\target\classes\org\example\ProductionController.class]: Failed to instantiate [org.example.ProductionController]: Constructor threw exception
+2025-02-15 17:01:00 - Stopping service [Tomcat]
+2025-02-15 17:01:00 - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-15 17:01:00 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'productionController' defined in file [C:\Users\esben\IdeaProjects\re-exam\target\classes\org\example\ProductionController.class]: Failed to instantiate [org.example.ProductionController]: Constructor threw exception
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1337)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1222)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at org.example.Main.main(Main.java:14)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.example.ProductionController]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:221)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:94)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1331)
+	... 17 common frames omitted
+Caused by: java.lang.NullPointerException: Cannot invoke "org.eclipse.milo.opcua.sdk.client.OpcUaClient.connect()" because "this.client" is null
+	at org.example.Production.<init>(Production.java:40)
+	at org.example.ProductionController.<init>(ProductionController.java:19)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:195)
+	... 19 common frames omitted

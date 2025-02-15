@@ -23,7 +23,7 @@ public class Main {
             Production production = new Production();
 
             try {
-                // Get production parameters from the user
+                // Input integer værdier af variable
                 System.out.println("Enter batchId:");
                 int batchId = scanner.nextInt();
                 System.out.println("Enter productType:");
@@ -33,7 +33,8 @@ public class Main {
                 System.out.println("Enter speed:");
                 int speed = scanner.nextInt();
 
-                // Start production with the entered parameters
+                // Start produktionen med de inputtede værdier
+                production.machineReady();
                 production.startProduction(batchId, productType, quantity, speed);
 
                 // Command loop
@@ -42,7 +43,7 @@ public class Main {
                     int command = scanner.nextInt();
 
                     if (command == -1) {
-                        break; // Exit the loop if -1 is entered
+                        break; // Afbryd forbindelsen
                     }
 
                     try {
