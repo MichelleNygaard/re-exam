@@ -1010,3 +1010,23 @@ Caused by: java.lang.NullPointerException: Cannot invoke "org.eclipse.milo.opcua
 2025-02-15 16:24:57 - Started Main in 1.443 seconds (process running for 4.49)
 2025-02-15 16:24:57 - Machine is not in idle. Resetting...
 2025-02-15 16:24:57 - Starting with parameter: batchId=296 productType=1 quantity=25 speed=250
+2025-02-15 17:10:51 - Java version: 22.0.1
+2025-02-15 17:10:51 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 17:10:51 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 17:10:53 - SecureRandom seeded in 0ms.
+2025-02-15 17:10:53 - Starting Main using Java 22.0.1 with PID 17608 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 17:10:53 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 17:10:54 - Tomcat initialized with port 8080 (http)
+2025-02-15 17:10:54 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 17:10:54 - Starting service [Tomcat]
+2025-02-15 17:10:54 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 17:10:54 - Initializing Spring embedded WebApplicationContext
+2025-02-15 17:10:54 - Root WebApplicationContext: initialization completed in 1156 ms
+2025-02-15 17:10:55 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 17:10:55 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 17:10:55 - Started Main in 2.102 seconds (process running for 6.733)
+2025-02-15 17:10:55 - Machine is not in idle. Resetting...
+2025-02-15 17:11:13 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-15 17:11:13 - Initializing Servlet 'dispatcherServlet'
+2025-02-15 17:11:13 - Completed initialization in 1 ms
+2025-02-15 17:11:13 - Starting with parameter: batchId=167 productType=2 quantity=30 speed=150
