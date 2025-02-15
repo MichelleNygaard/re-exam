@@ -56,17 +56,7 @@ public class Production {
 
 
     public void startProduction(int batchId, int productType, int quantity, int speed) throws Exception {
-        if (!isValidBatchId(batchId)) {
-            throw new IllegalArgumentException("Invalid batch id, must be between 1 and 65535.");
-        }
 
-        if (!isValidSpeed(productType, speed)) {
-            throw new IllegalArgumentException("Invalid speed for the product type.");
-        }
-
-        if (!isValidQuantity(quantity)) {
-            throw new IllegalArgumentException("Invalid quantity, must be between 1 and 65535.");
-        }
 
 
         nodeWrite(BATCH_VALUE_NODE_ID, new Variant((float) batchId));
@@ -108,7 +98,7 @@ public class Production {
 
 
 
-    private boolean isValidBatchId(int batchId) throws Exception {
+    public boolean isValidBatchId(int batchId) throws Exception {
         if (batchId  <= 0 || batchId > 65535) {
             return false;
         } else {
@@ -116,15 +106,21 @@ public class Production {
         }
 
     }
-    private boolean isValidQuantity(int quantity) throws Exception {
+    public boolean isValidQuantity(int quantity) throws Exception {
         if (quantity <= 0 || quantity > 65535) {
             return false;
         } else {
             return true;
         }
     }
-
-    private boolean isValidSpeed(int productType, int speed){
+    public boolean isValidProductType (int productType) {
+        if (productType < 0 || productType >5) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+    public boolean isValidSpeed(int productType, int speed){
         return switch(productType){
             case 0 -> speed >= 0 && speed <= 600;  // Pilsner
             case 1 -> speed >= 0 && speed <= 300;  // Wheat

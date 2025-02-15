@@ -24,14 +24,42 @@ public class Main {
 
             try {
                 // Input integer værdier af variable
-                System.out.println("Enter batchId:");
-                int batchId = scanner.nextInt();
-                System.out.println("Enter productType:");
-                int productType = scanner.nextInt();
-                System.out.println("Enter quantity:");
-                int quantity = scanner.nextInt();
-                System.out.println("Enter speed:");
-                int speed = scanner.nextInt();
+                int batchId = -1; // Initialize with an invalid value
+                while (!production.isValidBatchId(batchId)) {
+                    System.out.println("Enter batchId (must be positive):");
+                    batchId = scanner.nextInt();
+                    if (!production.isValidBatchId(batchId)) {
+                        System.out.println("Invalid batchId. Please enter a value between 0 and 65535.");
+                    }
+                }
+
+                int productType = -1; // Initialize with an invalid value
+                while (!production.isValidProductType(productType)) {
+                    System.out.println("Enter productType (0-5):");
+                    productType = scanner.nextInt();
+                    if (!production.isValidProductType(productType)) {
+                        System.out.println("Invalid productType. Please enter a value between 0 and 5.");
+                    }
+                }
+
+                int quantity = -1; // Initialize with an invalid value
+                while (!production.isValidQuantity(quantity)) {
+                    System.out.println("Enter quantity (must be positive):");
+                    quantity = scanner.nextInt();
+                    if (!production.isValidQuantity(quantity)) {
+                        System.out.println("Invalid quantity. Please enter a value between 0 and 65535.");
+                    }
+                }
+
+                int speed = -1; // Initialize with an invalid value
+                while (!production.isValidSpeed(productType, speed)) {  // Use productType for validation
+                    System.out.println("Enter speed (valid range depends on productType):");
+                    speed = scanner.nextInt();
+                    if (!production.isValidSpeed(productType, speed)) {
+                        System.out.println("Invalid speed for the selected product type. Please check the valid range.");
+                    }
+                }
+
 
                 // Start produktionen med de inputtede værdier
                 production.machineReady();
