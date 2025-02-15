@@ -19,7 +19,8 @@ public class Main {
 
         //start produktionen
         Production production = new Production();
-        production.startProduction(1005, 2, 200, 120);
+        // Can be used to set parameters without PostMan
+//        production.startProduction(0, 2, 200, 120);
         production.machineReady();
 
     }

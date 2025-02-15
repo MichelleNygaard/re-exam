@@ -63,6 +63,18 @@ public class Production {
 
 
     public void startProduction(int batchId, int productType, int quantity, int speed) throws Exception {
+        if (!isValidBatchId(batchId)) {
+            throw new IllegalArgumentException("Invalid batch id, must be between 1 and 65535.");
+        }
+
+        if (!isValidSpeed(productType, speed)) {
+            throw new IllegalArgumentException("Invalid speed for the product type.");
+        }
+
+        if (!isValidQuantity(quantity)) {
+            throw new IllegalArgumentException("Invalid quantity, must be between 1 and 65535.");
+        }
+
         testWrite(BATCH_VALUE_NODE_ID, new Variant((float) batchId));
         testWrite(PRODUCT_TYPE_NODE_ID, new Variant((float) productType));
         testWrite(QUANTITY_VALUE_NODE_ID, new Variant((float) quantity));
@@ -76,7 +88,7 @@ public class Production {
     }
 
 
-    private void sendCommand(int command) throws Exception {
+    public void sendCommand(int command) throws Exception {
         client.writeValues(
                 ImmutableList.of(CNTRL_CMD_NODE_ID),
                 ImmutableList.of(new DataValue(new Variant(command), null, null))
