@@ -63,16 +63,16 @@ public class Production {
 
 
     public void startProduction(int batchId, int productType, int quantity, int speed) throws Exception {
-        if (!isValidBatchId(batchId)) {
-            throw new IllegalArgumentException("Invalid batch id, must be between 1 and 65535.");
+        if (!isValidQuantity(quantity)) {
+            throw new Exception("Invalid quantity, must be between 1 and 65535.");
         }
 
         if (!isValidSpeed(productType, speed)) {
-            throw new IllegalArgumentException("Invalid speed for the product type.");
+            throw new Exception("Invalid speed for that product type.");
         }
 
-        if (!isValidQuantity(quantity)) {
-            throw new IllegalArgumentException("Invalid quantity, must be between 1 and 65535.");
+        if (!isValidBatchId(batchId)) {
+            throw new Exception("Invalid batch ID, must be between 1 and 65535.");
         }
 
         testWrite(BATCH_VALUE_NODE_ID, new Variant((float) batchId));
@@ -83,12 +83,11 @@ public class Production {
         logger.info("Starting with parameter: batchId={} productType={} quantity={} speed={}", batchId, productType, quantity, speed);
         System.out.println("Current Machine State: " + readMachineState());
 
-
         sendCommand(2);
     }
 
 
-    public void sendCommand(int command) throws Exception {
+    private void sendCommand(int command) throws Exception {
         client.writeValues(
                 ImmutableList.of(CNTRL_CMD_NODE_ID),
                 ImmutableList.of(new DataValue(new Variant(command), null, null))

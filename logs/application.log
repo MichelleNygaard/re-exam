@@ -720,3 +720,293 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-02-15 15:53:47 - Initializing Servlet 'dispatcherServlet'
 2025-02-15 15:53:47 - Completed initialization in 1 ms
 2025-02-15 15:55:15 - Starting with parameter: batchId=2 productType=2 quantity=30 speed=150
+2025-02-15 16:03:34 - Starting Main using Java 22.0.1 with PID 15928 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:03:34 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:03:35 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:03:35 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:03:35 - Starting service [Tomcat]
+2025-02-15 16:03:35 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:03:35 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:03:35 - Root WebApplicationContext: initialization completed in 912 ms
+2025-02-15 16:03:35 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'productionController' defined in file [C:\Users\Livvey\re-exam\target\classes\org\example\ProductionController.class]: Failed to instantiate [org.example.ProductionController]: Constructor threw exception
+2025-02-15 16:03:35 - Stopping service [Tomcat]
+2025-02-15 16:03:35 - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-15 16:03:35 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'productionController' defined in file [C:\Users\Livvey\re-exam\target\classes\org\example\ProductionController.class]: Failed to instantiate [org.example.ProductionController]: Constructor threw exception
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1337)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1222)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at org.example.Main.main(Main.java:11)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.example.ProductionController]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:221)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:94)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1331)
+	... 17 common frames omitted
+Caused by: java.lang.NullPointerException: Cannot invoke "org.eclipse.milo.opcua.sdk.client.OpcUaClient.connect()" because "this.client" is null
+	at org.example.Production.<init>(Production.java:47)
+	at org.example.ProductionController.<init>(ProductionController.java:19)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:195)
+	... 19 common frames omitted
+2025-02-15 16:03:47 - Java version: 22.0.1
+2025-02-15 16:03:47 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:03:47 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:03:49 - SecureRandom seeded in 0ms.
+2025-02-15 16:03:49 - Starting Main using Java 22.0.1 with PID 25100 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:03:49 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:03:50 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:03:50 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:03:50 - Starting service [Tomcat]
+2025-02-15 16:03:50 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:03:50 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:03:50 - Root WebApplicationContext: initialization completed in 837 ms
+2025-02-15 16:03:50 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:03:50 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:03:50 - Started Main in 1.505 seconds (process running for 5.154)
+2025-02-15 16:03:50 - Machine is not in idle. Resetting...
+2025-02-15 16:04:07 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-15 16:04:07 - Initializing Servlet 'dispatcherServlet'
+2025-02-15 16:04:07 - Completed initialization in 1 ms
+2025-02-15 16:04:07 - Starting with parameter: batchId=120 productType=2 quantity=30 speed=150
+2025-02-15 16:04:58 - Java version: 22.0.1
+2025-02-15 16:04:58 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:04:58 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:05:00 - SecureRandom seeded in 0ms.
+2025-02-15 16:05:00 - Starting Main using Java 22.0.1 with PID 8516 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:05:00 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:05:01 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:05:01 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:05:01 - Starting service [Tomcat]
+2025-02-15 16:05:01 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:05:01 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:05:01 - Root WebApplicationContext: initialization completed in 838 ms
+2025-02-15 16:05:01 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:05:01 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:05:02 - Started Main in 1.504 seconds (process running for 4.921)
+2025-02-15 16:05:02 - Machine is not in idle. Resetting...
+2025-02-15 16:05:06 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-15 16:05:06 - Initializing Servlet 'dispatcherServlet'
+2025-02-15 16:05:06 - Completed initialization in 1 ms
+2025-02-15 16:05:07 - Starting with parameter: batchId=120 productType=2 quantity=30 speed=150
+2025-02-15 16:05:47 - Java version: 22.0.1
+2025-02-15 16:05:47 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:05:47 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:05:48 - SecureRandom seeded in 0ms.
+2025-02-15 16:05:49 - Starting Main using Java 22.0.1 with PID 16196 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:05:49 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:05:49 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:05:49 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:05:49 - Starting service [Tomcat]
+2025-02-15 16:05:49 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:05:50 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:05:50 - Root WebApplicationContext: initialization completed in 869 ms
+2025-02-15 16:05:50 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:05:50 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:05:50 - Started Main in 1.513 seconds (process running for 4.529)
+2025-02-15 16:05:50 - Machine is not in idle. Resetting...
+2025-02-15 16:05:59 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-15 16:05:59 - Initializing Servlet 'dispatcherServlet'
+2025-02-15 16:05:59 - Completed initialization in 1 ms
+2025-02-15 16:05:59 - Starting with parameter: batchId=121 productType=2 quantity=30 speed=150
+2025-02-15 16:07:26 - Java version: 22.0.1
+2025-02-15 16:07:26 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:07:26 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:07:27 - SecureRandom seeded in 0ms.
+2025-02-15 16:07:28 - Starting Main using Java 22.0.1 with PID 15448 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:07:28 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:07:29 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:07:29 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:07:29 - Starting service [Tomcat]
+2025-02-15 16:07:29 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:07:29 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:07:29 - Root WebApplicationContext: initialization completed in 846 ms
+2025-02-15 16:07:29 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:07:29 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:07:29 - Started Main in 1.543 seconds (process running for 4.657)
+2025-02-15 16:07:29 - Starting with parameter: batchId=24 productType=2 quantity=50 speed=120
+2025-02-15 16:07:29 - Machine is not in idle. Resetting...
+2025-02-15 16:08:00 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-15 16:08:00 - Initializing Servlet 'dispatcherServlet'
+2025-02-15 16:08:00 - Completed initialization in 1 ms
+2025-02-15 16:09:38 - Java version: 22.0.1
+2025-02-15 16:09:38 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:09:38 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:09:39 - SecureRandom seeded in 0ms.
+2025-02-15 16:09:40 - Starting Main using Java 22.0.1 with PID 14220 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:09:40 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:09:40 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:09:40 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:09:40 - Starting service [Tomcat]
+2025-02-15 16:09:40 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:09:40 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:09:40 - Root WebApplicationContext: initialization completed in 827 ms
+2025-02-15 16:09:41 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:09:41 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:09:41 - Started Main in 1.464 seconds (process running for 4.586)
+2025-02-15 16:09:41 - Starting with parameter: batchId=25 productType=2 quantity=50 speed=120
+2025-02-15 16:09:41 - Machine is not in idle. Resetting...
+2025-02-15 16:10:29 - Java version: 22.0.1
+2025-02-15 16:10:29 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:10:29 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:10:30 - SecureRandom seeded in 0ms.
+2025-02-15 16:10:30 - Starting Main using Java 22.0.1 with PID 7080 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:10:30 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:10:31 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:10:31 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:10:31 - Starting service [Tomcat]
+2025-02-15 16:10:31 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:10:31 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:10:31 - Root WebApplicationContext: initialization completed in 829 ms
+2025-02-15 16:10:32 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:10:32 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:10:32 - Started Main in 1.47 seconds (process running for 4.409)
+2025-02-15 16:10:32 - Machine is not in idle. Resetting...
+2025-02-15 16:10:32 - Starting with parameter: batchId=25 productType=2 quantity=50 speed=120
+2025-02-15 16:16:46 - Java version: 22.0.1
+2025-02-15 16:16:46 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:16:46 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:16:48 - SecureRandom seeded in 0ms.
+2025-02-15 16:16:48 - Starting Main using Java 22.0.1 with PID 19640 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:16:48 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:16:49 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:16:49 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:16:49 - Starting service [Tomcat]
+2025-02-15 16:16:49 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:16:49 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:16:49 - Root WebApplicationContext: initialization completed in 882 ms
+2025-02-15 16:16:49 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:16:49 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:16:49 - Started Main in 1.569 seconds (process running for 4.655)
+2025-02-15 16:16:49 - Machine is not in idle. Resetting...
+2025-02-15 16:16:49 - Starting with parameter: batchId=299 productType=1 quantity=50 speed=250
+2025-02-15 16:19:44 - Java version: 22.0.1
+2025-02-15 16:19:44 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:19:44 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:19:45 - SecureRandom seeded in 0ms.
+2025-02-15 16:19:45 - Starting Main using Java 22.0.1 with PID 4676 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:19:45 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:19:46 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:19:46 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:19:46 - Starting service [Tomcat]
+2025-02-15 16:19:46 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:19:46 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:19:46 - Root WebApplicationContext: initialization completed in 799 ms
+2025-02-15 16:19:47 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:19:47 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:19:47 - Started Main in 1.429 seconds (process running for 4.446)
+2025-02-15 16:20:14 - Java version: 22.0.1
+2025-02-15 16:20:14 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:20:14 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:20:16 - SecureRandom seeded in 0ms.
+2025-02-15 16:20:16 - Starting Main using Java 22.0.1 with PID 14248 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:20:16 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:20:17 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:20:17 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:20:17 - Starting service [Tomcat]
+2025-02-15 16:20:17 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:20:17 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:20:17 - Root WebApplicationContext: initialization completed in 781 ms
+2025-02-15 16:20:17 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:20:17 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:20:17 - Started Main in 1.429 seconds (process running for 4.443)
+2025-02-15 16:20:17 - Machine is not in idle. Resetting...
+2025-02-15 16:20:48 - Java version: 22.0.1
+2025-02-15 16:20:48 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:20:48 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:20:49 - SecureRandom seeded in 0ms.
+2025-02-15 16:20:49 - Starting Main using Java 22.0.1 with PID 22868 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:20:49 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:20:50 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:20:50 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:20:50 - Starting service [Tomcat]
+2025-02-15 16:20:50 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:20:50 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:20:50 - Root WebApplicationContext: initialization completed in 771 ms
+2025-02-15 16:20:50 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:20:50 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:20:50 - Started Main in 1.383 seconds (process running for 4.465)
+2025-02-15 16:20:51 - Machine is not in idle. Resetting...
+2025-02-15 16:20:51 - Starting with parameter: batchId=298 productType=1 quantity=25 speed=250
+2025-02-15 16:21:57 - Java version: 22.0.1
+2025-02-15 16:21:57 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:21:57 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:21:58 - SecureRandom seeded in 0ms.
+2025-02-15 16:21:58 - Starting Main using Java 22.0.1 with PID 8036 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:21:58 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:21:59 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:21:59 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:21:59 - Starting service [Tomcat]
+2025-02-15 16:21:59 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:21:59 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:21:59 - Root WebApplicationContext: initialization completed in 793 ms
+2025-02-15 16:22:00 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:22:00 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:22:00 - Started Main in 1.443 seconds (process running for 4.61)
+2025-02-15 16:22:00 - Machine is not in idle. Resetting...
+2025-02-15 16:22:00 - Starting with parameter: batchId=298 productType=1 quantity=25 speed=250
+2025-02-15 16:23:08 - Java version: 22.0.1
+2025-02-15 16:23:08 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:23:08 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:23:10 - SecureRandom seeded in 0ms.
+2025-02-15 16:23:10 - Starting Main using Java 22.0.1 with PID 4448 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:23:10 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:23:11 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:23:11 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:23:11 - Starting service [Tomcat]
+2025-02-15 16:23:11 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:23:11 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:23:11 - Root WebApplicationContext: initialization completed in 825 ms
+2025-02-15 16:23:11 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:23:11 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:23:11 - Started Main in 1.494 seconds (process running for 4.619)
+2025-02-15 16:23:31 - Java version: 22.0.1
+2025-02-15 16:23:31 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:23:31 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:23:32 - SecureRandom seeded in 0ms.
+2025-02-15 16:23:33 - Starting Main using Java 22.0.1 with PID 1872 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:23:33 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:23:33 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:23:33 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:23:33 - Starting service [Tomcat]
+2025-02-15 16:23:33 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:23:33 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:23:33 - Root WebApplicationContext: initialization completed in 812 ms
+2025-02-15 16:23:34 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:23:34 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:23:34 - Started Main in 1.457 seconds (process running for 4.4)
+2025-02-15 16:23:34 - Machine is not in idle. Resetting...
+2025-02-15 16:24:54 - Java version: 22.0.1
+2025-02-15 16:24:54 - Eclipse Milo OPC UA Stack version: 0.6.15
+2025-02-15 16:24:54 - Eclipse Milo OPC UA Client SDK version: 0.6.15
+2025-02-15 16:24:55 - SecureRandom seeded in 0ms.
+2025-02-15 16:24:56 - Starting Main using Java 22.0.1 with PID 12532 (C:\Users\Livvey\re-exam\target\classes started by Livvey in C:\Users\Livvey\re-exam)
+2025-02-15 16:24:56 - No active profile set, falling back to 1 default profile: "default"
+2025-02-15 16:24:56 - Tomcat initialized with port 8080 (http)
+2025-02-15 16:24:56 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:24:56 - Starting service [Tomcat]
+2025-02-15 16:24:56 - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-02-15 16:24:56 - Initializing Spring embedded WebApplicationContext
+2025-02-15 16:24:56 - Root WebApplicationContext: initialization completed in 816 ms
+2025-02-15 16:24:57 - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-15 16:24:57 - Tomcat started on port 8080 (http) with context path '/'
+2025-02-15 16:24:57 - Started Main in 1.443 seconds (process running for 4.49)
+2025-02-15 16:24:57 - Machine is not in idle. Resetting...
+2025-02-15 16:24:57 - Starting with parameter: batchId=296 productType=1 quantity=25 speed=250
