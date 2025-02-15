@@ -75,10 +75,11 @@ public class Production {
             throw new IllegalArgumentException("Invalid quantity, must be between 1 and 65535.");
         }
 
-        testWrite(BATCH_VALUE_NODE_ID, new Variant((float) batchId));
-        testWrite(PRODUCT_TYPE_NODE_ID, new Variant((float) productType));
-        testWrite(QUANTITY_VALUE_NODE_ID, new Variant((float) quantity));
-        testWrite(SPEED_NODE_ID, new Variant((float) speed));
+
+        nodeWrite(BATCH_VALUE_NODE_ID, new Variant((float) batchId));
+        nodeWrite(PRODUCT_TYPE_NODE_ID, new Variant((float) productType));
+        nodeWrite(QUANTITY_VALUE_NODE_ID, new Variant((float) quantity));
+        nodeWrite(SPEED_NODE_ID, new Variant((float) speed));
 
         logger.info("Starting with parameter: batchId={} productType={} quantity={} speed={}", batchId, productType, quantity, speed);
         System.out.println("Current Machine State: " + readMachineState());
@@ -143,7 +144,7 @@ public class Production {
         };
     }
 
-    private void testWrite(NodeId nodeId, Variant value) throws Exception {
+    private void nodeWrite(NodeId nodeId, Variant value) throws Exception {
         client.writeValue(nodeId, DataValue.valueOnly(value));
         System.out.println("NodeId:" + nodeId + "\n" + "value:" + value);
 
