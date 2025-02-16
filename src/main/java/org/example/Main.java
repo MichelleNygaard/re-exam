@@ -18,8 +18,11 @@ public class Main {
 
 
         //start produktionen
-//        Production production = new Production();
-//        production.startProduction(1001, 2, 200, 120);
-//        production.cmdNode();
+        Production production = new Production();
+        // Can be used to set parameters without PostMan
+        production.machineReady();
+//        production.startProduction(296, 1, 25, 250);
+
+
     }
 }
