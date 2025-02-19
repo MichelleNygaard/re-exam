@@ -98,14 +98,14 @@ public class Production {
     private int readMachineState() throws Exception {
         if (client == null) {
             System.out.println("OPC UA client is not connected or session is null.");
-            return -1;
+            return -1; //terminate process
         };
 
         CompletableFuture<DataValue> futureValue = client.readValue(0, TimestampsToReturn.Both, CURRENT_STATE_NODE_ID);
-        DataValue dataValue = futureValue.get();
-        Object valueState = dataValue.getValue().getValue();
-        Optional<ExpandedNodeId> dataType = dataValue.getValue().getDataType();
-        return (Integer) valueState;
+        DataValue dataValue = futureValue.get(); // Blocking until the value is retrieved from server
+        Object valueState = dataValue.getValue().getValue(); // Value is returned as an object
+        Optional<ExpandedNodeId> dataType = dataValue.getValue().getDataType(); // Data type is returned as an object
+        return (Integer) valueState; // Cast the object to an integer
     }
 
 
