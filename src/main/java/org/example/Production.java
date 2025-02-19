@@ -44,7 +44,7 @@ public class Production {
         int currentState = readMachineState();
         //int stopReason = readStopReason();
         if (currentState == 4) { // idle state
-            System.out.println("Machine is idle, and ready to start");; // kør
+            System.out.println("Machine is idle, and ready to start");; // go
             TimeUnit.MILLISECONDS.sleep(500);
         } else {
             logger.info("Machine is not in idle. Resetting...");
@@ -58,25 +58,37 @@ public class Production {
     public void startProduction(int batchId, int productType, int quantity, int speed) throws Exception {
 
 
-
+        // The nodeWrite method is called. Which needs nodeId and Variant value as inputs.
+        // The user-inputted values "batchId, productType etc." are then cast as floats to the node
         nodeWrite(BATCH_VALUE_NODE_ID, new Variant((float) batchId));
         nodeWrite(PRODUCT_TYPE_NODE_ID, new Variant((float) productType));
         nodeWrite(QUANTITY_VALUE_NODE_ID, new Variant((float) quantity));
         nodeWrite(SPEED_NODE_ID, new Variant((float) speed));
 
+
+
+
         logger.info("Starting with parameter: batchId={} productType={} quantity={} speed={}", batchId, productType, quantity, speed);
         System.out.println("Current Machine State: " + readMachineState());
 
-        //sendCommand(2);
+        //If the CLI version of the application is not being used, this method can also be used to write the values
+        //by calling startProduction(batchid, producttype, quantity, speed) in main().
+
+        //sendCommand(2); // used for testing along with above comment.
     }
 
 
     public void sendCommand(int command) throws Exception {
+         //the client writes the values from "command" to the node "CNTRL_CMD_NODE_ID"
+         //this method can be called at anytime to send commands such as reset, start without the users input.
+         //this method is also called in the Main method when user writes a command.
         client.writeValues(
                 ImmutableList.of(CNTRL_CMD_NODE_ID),
                 ImmutableList.of(new DataValue(new Variant(command), null, null))
         ).get();
 
+     //the client writes the value "true" to the "CMD_CHANGE_REQUEST_NODE_ID" to change the value of "status" in the OPC UA server to
+     //    true.
         client.writeValues(
                 ImmutableList.of(CMD_CHANGE_REQUEST_NODE_ID),
                 ImmutableList.of(new DataValue(new Variant(true), null, null))
@@ -99,6 +111,7 @@ public class Production {
 
 
     public boolean isValidBatchId(int batchId) throws Exception {
+        // checks if the given batchId is within the acceptable range of the beer machines parameters.
         if (batchId  <= 0 || batchId > 65535) {
             return false;
         } else {
@@ -107,6 +120,7 @@ public class Production {
 
     }
     public boolean isValidQuantity(int quantity) throws Exception {
+        //checks if the given quantity is within the acceptable range of the beer machine parameters.
         if (quantity <= 0 || quantity > 65535) {
             return false;
         } else {
@@ -114,6 +128,7 @@ public class Production {
         }
     }
     public boolean isValidProductType (int productType) {
+        //checks if the product type is within the acceptable range of the beer machine parameters.
         if (productType < 0 || productType >5) {
             return false;
         } else {
@@ -121,6 +136,7 @@ public class Production {
         }
     };
     public boolean isValidSpeed(int productType, int speed){
+        //checks if speed is valid with the given productType.
         return switch(productType){
             case 0 -> speed >= 0 && speed <= 600;  // Pilsner
             case 1 -> speed >= 0 && speed <= 300;  // Wheat
@@ -134,6 +150,8 @@ public class Production {
 
 
     private void nodeWrite(NodeId nodeId, Variant value) throws Exception {
+        //this method writes the value of the inputted batchId, productType etc. to a Variant
+        //and writes it to a given nodeId. This method is called in startProduction.
         client.writeValue(nodeId, DataValue.valueOnly(value));
         System.out.println("NodeId:" + nodeId + "\n" + "value:" + value);
 

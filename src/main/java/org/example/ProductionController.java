@@ -38,7 +38,7 @@ public class ProductionController {
         }
     }
 
-    // Method for handleing POST request to send a command
+    // Method for handling POST request to send a command
     // POST request in Postman at http://localhost:8080/api/sendCommand
     @PostMapping("/sendCommand")
     public ResponseEntity<String> sendCommand(@RequestParam int command) {

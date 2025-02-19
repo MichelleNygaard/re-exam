@@ -23,8 +23,8 @@ public class Main {
             Production production = new Production();
 
             try {
-                // Input integer værdier af variable
-                int batchId = -1; // Initialize with an invalid value
+                // Input integer values of batchId.
+                int batchId = -1; // Initialize with an invalid value, this will start the while loop by using isValidBatchId().
                 while (!production.isValidBatchId(batchId)) {
                     System.out.println("Enter batchId (must be positive):");
                     batchId = scanner.nextInt();
@@ -33,7 +33,7 @@ public class Main {
                     }
                 }
 
-                int productType = -1; // Initialize with an invalid value
+                int productType = -1; // Initialize with an invalid value, same as above with productType.
                 while (!production.isValidProductType(productType)) {
                     System.out.println("Enter productType (0-5):");
                     productType = scanner.nextInt();
@@ -61,17 +61,20 @@ public class Main {
                 }
 
 
-                // Start produktionen med de inputtede værdier
+                // Calls machineReady() to check the machine state. Start production with initialized values from above.
+                // unresolved issue: machineReady does not reset the machine per the functionalities of the method
+                // if machine is not idle, user will need to input 1 when prompted for a command to reset the machine.
                 production.machineReady();
                 production.startProduction(batchId, productType, quantity, speed);
 
                 // Command loop
                 while (true) {
+                    //asks the user for a command. 1 to reset, 2 to start.
                     System.out.println("Enter command (or -1 to exit):");
                     int command = scanner.nextInt();
 
                     if (command == -1) {
-                        break; // Afbryd forbindelsen
+                        break; // breaks the loop
                     }
 
                     try {
@@ -80,6 +83,9 @@ public class Main {
                     } catch (Exception e) {
                         System.out.println("Error sending command: " + e.getMessage());
                     }
+                    //NOTES FOR Command Loop. machine cannot be reset after production has finished,
+                    // and the user will not be prompted to enter new parameters by default.
+                    // user needs to restart the client.
                 }
 
             } catch (NumberFormatException e) {
@@ -92,7 +98,6 @@ public class Main {
         }
     }
 
-        //start produktionen
-
-        // Can be used to set parameters without PostMan
-//        production.startProduction(0, 2, 200, 120);
+        // The function call below is used for testing the write methods without using the CLI.
+        // If the line is uncommented, the sendCommand(2) in Production.java must also be uncommented.
+        // production.startProduction(0, 2, 200, 120);
